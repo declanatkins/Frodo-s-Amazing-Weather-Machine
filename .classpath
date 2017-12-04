@@ -2,7 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Home/Desktop/DistSystProject/gson-2.8.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Home/Desktop/DistSystProject/org.restlet.jar"/>
+	<classpathentry kind="lib" path="externalJars/gson-2.8.2.jar"/>
+	<classpathentry kind="lib" path="externalJars/org.restlet.jar"/>
+	<classpathentry kind="lib" path="externalJars/sqlite-jdbc-3.21.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
