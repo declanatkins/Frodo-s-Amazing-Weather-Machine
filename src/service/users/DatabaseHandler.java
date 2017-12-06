@@ -3,13 +3,14 @@ package service.users;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseHandler {
 	
 	private Connection conn;
-	private static String DB_URL = "jdbc:sqlite:Database/users.db";
+	private static final String DB_URL = "jdbc:sqlite:Database/users.db";
 	
 	public DatabaseHandler() {
 		try {
@@ -30,7 +31,7 @@ public class DatabaseHandler {
 						"CREATE TABLE IF NOT EXISTS events (\n" +
 						"id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
 						"userID INTEGER NOT NULL,\n" +
-						"eventID INTEGER NOT NULL,\n" +
+						"eventID TEXT NOT NULL,\n" +
 						"source TEXT NOT NULL\n);";
 			String querySearches =//events searches
 						"CREATE TABLE IF NOT EXISTS event_searches (\n" +
@@ -57,8 +58,58 @@ public class DatabaseHandler {
 			prepState.execute();
 			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			System.err.println("Error inserting search");
+			return false;
+		}
+	}
+	
+	public UserInfo getUserProfile(String userName, String password) {
+		try {
+			String query = 
+						"SELECT id FROM users\n" +
+						"WHERE user_name = ? AND password = ?";
+			PreparedStatement prepState = conn.prepareStatement(query);
+			prepState.setString(1, userName);
+			prepState.setString(2, password);
+			ResultSet res = prepState.executeQuery();
+			int userID = res.getInt("id");
+			UserInfo profile = new UserInfo(userName, userID);
+			return profile;
+		} catch (SQLException e) {
+			System.err.println("User not found");
+			return null;
+		}
+	}
+	
+	public boolean insertNewUser(String userName, String password) {
+		try {
+			String query = 
+					"INSERT INTO users(user_name, password) \n" +
+					"VALUES(?,?);";
+			PreparedStatement prepState = conn.prepareStatement(query);
+			prepState.setString(1, userName);
+			prepState.setString(2, password);
+			prepState.execute();
+			return true;
+		} catch (SQLException e) {
+			System.err.println("Failed inserting new user");
+			return false;
+		}
+	}
+	
+	public boolean insertEvent(int userID, String eventID, String source) {
+		try {
+			String query = 
+					"INSERT INTO events(userID,eventID,source)\n" +
+					"VALUES(?,?,?)";
+			PreparedStatement prepState = conn.prepareStatement(query);
+			prepState.setInt(1, userID);
+			prepState.setString(2, eventID);
+			prepState.setString(3, source);
+			prepState.execute();
+			return true;
+		} catch (SQLException e) {
+			System.err.println("Failed inserting event");
 			return false;
 		}
 	}
@@ -66,6 +117,7 @@ public class DatabaseHandler {
 	
 	public static void main(String[] args) {
 		DatabaseHandler dbh = new DatabaseHandler();
-		dbh.insertSearch("test", 1);
+		dbh.insertNewUser("dec", "1234");
+		UserInfo dec = dbh.getUserProfile("dec", "1234");
 	}
 }
