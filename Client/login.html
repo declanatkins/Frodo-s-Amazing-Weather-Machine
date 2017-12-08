@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css"></link>
+    <title>Frodo's Amazing Weather Machine</title>
+</head>
+<body>
+    <div class="header">
+        <img src="banner.png" class="banner">
+    </div>
+    <div class="content">
+        <div class="login" id="cont1">
+            <form class="login-form" action="javascript:;" onsubmit="login_func(this)">
+                <div class="input_group">
+                    <input type="text" name="Username" placeholder="username" class="input">
+                </div>
+                <div class="input_group">
+                    <input type="text" name="Password" placeholder="password" class="input password">
+                </div>    
+                <button type="submit" class="button">Login</button>
+            </form>
+        </div>
+        <div class="search" id="cont2"></div>
+        <div class="results" id="cont3"></div>
+    </div>
+    <script type="text/javascript">
+        //hide the search and results sections on load
+        $(document).ready(function (){
+            var searchCont = document.getElementById("cont2");
+            var resultCont = document.getElementById("cont2");
+            searchCont.setAttribute("display", "none");
+            resultCont.setAttribute("display", "none");
+        });
+
+        //request login
+        var userEndpoint = "127.0.0.1:5000/login";
+        function login_func(form){
+            console.log("heloooooooooo");
+        }
+    </script>
+</body>
+</html>
