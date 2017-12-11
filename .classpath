@@ -5,10 +5,5 @@
 	<classpathentry kind="lib" path="externalJars/gson-2.8.2.jar"/>
 	<classpathentry kind="lib" path="externalJars/org.restlet.jar"/>
 	<classpathentry kind="lib" path="externalJars/sqlite-jdbc-3.21.0.jar"/>
-	<classpathentry kind="lib" path="externalJars/spark-core-2.7.1.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/Frodo&apos;s-Amazing-Weather-Machine/externalJars/spark-core-2.7.1-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

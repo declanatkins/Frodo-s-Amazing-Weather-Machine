@@ -17,12 +17,12 @@
         <div class="login" id="cont1">
             <form class="login-form" action="javascript:;" onsubmit="login_func(this)">
                 <div class="input_group">
-                    <input type="text" name="Username" placeholder="username" class="input">
+                    <input type="text" name="username" placeholder="username" class="input">
                 </div>
                 <div class="input_group">
-                    <input type="text" name="Password" placeholder="password" class="input password">
+                    <input type="text" name="password" placeholder="password" class="input password">
                 </div>    
-                <button type="submit" class="button">Login</button>
+                <button type="submit" class="button" id="logbtn">Login</button>
             </form>
         </div>
         <div class="search" id="cont2"></div>
@@ -38,9 +38,40 @@
         });
 
         //request login
-        var userEndpoint = "127.0.0.1:5000/login";
+        var userEndpoint = "http://127.0.0.1:9000/login";
+        var userInfo;
         function login_func(form){
-            console.log("heloooooooooo");
+            document.getElementById("logbtn").setAttribute("display","none");
+            var formData = {
+                "username" : form["username"].value,
+                "password" : form["password"].value
+            };
+            console.log(formData);
+            $.ajax({
+                url : userEndpoint,
+                type : 'POST',
+                data : formData,
+                success: function(result){
+                    getUserInfo(result["link"]);
+                },
+                error: function(error){
+                    console.log('here');
+                }
+            });
+        }
+
+        function getUserInfo(link){ 
+            $.ajax({
+                url : 'http://127.0.0.1:9000' + link,
+                type : 'GET',
+                success: function(result){
+                    userInfo = result;
+                    console.log(result);
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            })
         }
     </script>
 </body>

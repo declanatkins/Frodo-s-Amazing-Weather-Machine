@@ -113,11 +113,4 @@ public class DatabaseHandler {
 			return false;
 		}
 	}
-	
-	
-	public static void main(String[] args) {
-		DatabaseHandler dbh = new DatabaseHandler();
-		dbh.insertNewUser("dec", "1234");
-		UserInfo dec = dbh.getUserProfile("dec", "1234");
-	}
 }
