@@ -76,13 +76,17 @@ public class DatabaseHandler {
 			UserInfo profile = new UserInfo(userName, userID);
 			return profile;
 		} catch (SQLException e) {
-			System.err.println("User not found");
 			return null;
 		}
 	}
 	
 	public boolean insertNewUser(String userName, String password) {
 		try {
+			//prelim test to see if user exists already
+			UserInfo user = getUserProfile(userName,password);
+			if (user != null) {
+				return false;
+			}
 			String query = 
 					"INSERT INTO users(user_name, password) \n" +
 					"VALUES(?,?);";
@@ -91,7 +95,7 @@ public class DatabaseHandler {
 			prepState.setString(2, password);
 			prepState.execute();
 			return true;
-		} catch (SQLException e) {
+		} catch (SQLException e ) {
 			System.err.println("Failed inserting new user");
 			return false;
 		}

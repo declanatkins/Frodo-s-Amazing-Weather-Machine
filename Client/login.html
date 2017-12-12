@@ -23,32 +23,54 @@
                     <input type="text" name="password" placeholder="password" class="input password">
                 </div>    
                 <button type="submit" class="button" id="logbtn">Login</button>
+                <button type="button" class="button" id="regStart" onclick="begin_reg()">New User?</button>
+            </form>
+        </div>
+        <div class="login" id="cont1Reg">
+            <form class="login-form" action="javascript:;" onsubmit="reg_func(this)">
+                <div class="input_group">
+                    <input type="text" name="username" placeholder="username" class="input">
+                </div>
+                <div class="input_group">
+                    <input type="text" name="password" placeholder="password" class="input password">
+                </div>    
+                <button type="submit" class="button" id="regbtn">Register</button>
             </form>
         </div>
         <div class="search" id="cont2"></div>
         <div class="results" id="cont3"></div>
     </div>
     <script type="text/javascript">
-        //hide the search and results sections on load
-        $(document).ready(function (){
+
+        //globals
+        var currLocation = null;
+
+        //ENDPOINTS
+        var usersBase = "http://127.0.0.1:9000";
+        var loginEndpoint = "http://127.0.0.1:9000/login"
+        var registerEndpoint = "http://127.0.0.1:9000/register";
+
+         //hide the search and results sections on load
+         $(document).ready(function (){
             var searchCont = document.getElementById("cont2");
             var resultCont = document.getElementById("cont2");
-            searchCont.setAttribute("display", "none");
-            resultCont.setAttribute("display", "none");
+            var regCont = document.getElementById("cont1Reg");
+            searchCont.style.display = "None";
+            resultCont.style.display = "None";
+            regCont.style.display = "None";
+            getLocation();
         });
 
         //request login
-        var userEndpoint = "http://127.0.0.1:9000/login";
-        var userInfo;
+        var userInfo = null;
         function login_func(form){
-            document.getElementById("logbtn").setAttribute("display","none");
             var formData = {
                 "username" : form["username"].value,
                 "password" : form["password"].value
             };
             console.log(formData);
             $.ajax({
-                url : userEndpoint,
+                url : loginEndpoint,
                 type : 'POST',
                 data : formData,
                 success: function(result){
@@ -62,7 +84,7 @@
 
         function getUserInfo(link){ 
             $.ajax({
-                url : 'http://127.0.0.1:9000' + link,
+                url : usersBase + link,
                 type : 'GET',
                 success: function(result){
                     userInfo = result;
@@ -72,6 +94,46 @@
                     console.log(error);
                 }
             })
+        }
+        
+        //register
+        function begin_reg(){
+            document.getElementById("cont1").style.display = "None";
+            document.getElementById("cont1Reg").style.display = "block";
+        }
+
+        function reg_func(form){
+            var formData = {
+                "username" : form["username"].value,
+                "password" : form["password"].value
+            };
+            console.log(formData);
+            $.ajax({
+                url : registerEndpoint,
+                type : 'POST',
+                data : formData,
+                success: function(result){
+                    document.getElementById("cont1").style.display = "block";
+                    document.getElementById("cont1Reg").style.display = "None";
+                },
+                error: function(error){
+                    console.log('here');
+                }
+            });
+        }
+
+        function getLocation(){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(setCurrLocation);
+            }
+            else{
+                console.log("not supported");
+            }
+        }
+
+        function setCurrLocation(loc){
+            currLocation = loc;
+            console.log(currLocation)
         }
     </script>
 </body>

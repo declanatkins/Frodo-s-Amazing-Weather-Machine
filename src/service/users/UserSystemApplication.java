@@ -38,14 +38,16 @@ public class UserSystemApplication extends Application{
 						input = input.replace("}", "");
 						String[] substr = input.split("#");
 						UserInfo profile = database.getUserProfile(substr[1], substr[2]);
-						users.put(profile.getName(), profile);
-						assert(profile != null);
-						String link = request.getResourceRef().getPath() + "/users/" + profile.getName();
-						response.setEntity("{\"user\" : \"" + profile.getName()
-										+ "\",\"link\" : \"" + link + "\"}" , MediaType.APPLICATION_JSON);
-						response.setStatus(Status.SUCCESS_OK);
-					}catch (AssertionError e) {
-						response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);
+						if(profile != null) {
+							users.put(profile.getName(), profile);
+							String link = request.getResourceRef().getPath() + "/users/" + profile.getName();
+							response.setEntity("{\"user\" : \"" + profile.getName()
+											+ "\",\"link\" : \"" + link + "\"}" , MediaType.APPLICATION_JSON);
+							response.setStatus(Status.SUCCESS_OK);
+						}
+						else {
+							response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);
+						}
 					}
 					catch(Exception e) {
 						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
@@ -63,12 +65,35 @@ public class UserSystemApplication extends Application{
 				if(request.getMethod() == Method.GET) {
 					String userName = (String) request.getAttributes().get("user_name");
 					UserInfo profile = users.get(userName);
-					try {
-						assert(profile != null);
+					if (profile != null) {
 						response.setEntity(gson.toJson(profile), MediaType.APPLICATION_JSON);
 						response.setStatus(Status.SUCCESS_OK);
-					} catch (AssertionError e) {
+					}
+					else {
 						response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);
+					}
+				}
+				else {
+					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+				}
+			}
+		});
+		
+		router.attach("/register", new Restlet() {
+			
+			public void handle(Request request, Response response) {
+				if(request.getMethod() == Method.POST) {
+					String input = request.getEntityAsText();
+					input = input.replace("username=", "#");
+					input = input.replace("&password=", "#");
+					input = input.replace("}", "");
+					String[] substr = input.split("#");
+					boolean success = database.insertNewUser(substr[1], substr[2]);
+					if(success) {
+						response.setStatus(Status.SUCCESS_OK);
+					}
+					else {
+						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 					}
 				}
 				else {
@@ -81,6 +106,7 @@ public class UserSystemApplication extends Application{
 	
 	public static void main(String[] args) throws Exception {
 		
+		//Add cors to allow browsers to accept the response
 		CorsService corsService = new CorsService();
 		corsService.setAllowedOrigins(new HashSet<String>(Arrays.asList("*")));
 		corsService.setAllowedCredentials(true);
