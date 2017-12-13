@@ -20,8 +20,6 @@ public class EventSystemApplication extends Application {
 	private static Map<String, EventSearch> results = new HashMap<String, EventSearch>();
 	
 	
-	
-	
 	public Router createInboundRoot() {
 		Router router = new Router(getContext());
 		

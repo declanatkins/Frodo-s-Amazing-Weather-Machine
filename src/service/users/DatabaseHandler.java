@@ -32,6 +32,7 @@ public class DatabaseHandler {
 						"id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
 						"userID INTEGER NOT NULL,\n" +
 						"eventID TEXT NOT NULL,\n" +
+						"eventCats TEXT NOT NULL,\n" + 
 						"source TEXT NOT NULL\n);";
 			String querySearches =//events searches
 						"CREATE TABLE IF NOT EXISTS event_searches (\n" +

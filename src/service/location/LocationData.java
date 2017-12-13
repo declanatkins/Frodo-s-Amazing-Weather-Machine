@@ -1,24 +1,34 @@
 package service.location;
 
+import ch.hsr.geohash.GeoHash;
+
 public class LocationData {
 	
-	private int latitude;
-	private int longitude;
+	private double latitude;
+	private double longitude;
+	private String geohash;
 	
-	private LocationData(int lat, int lon) {
+	private LocationData(double lat, double lon, String geo) {
 		latitude = lat;
 		longitude = lon;
+		geohash = geo;
 	}
 	
-	public static LocationData create(int lat, int lon) {
-		return new LocationData(lat,lon);
+	public static LocationData create(double lat, double lon) {
+		GeoHash geo = GeoHash.withCharacterPrecision(lat, lon, 12);
+		String hash = geo.toBase32();
+		return new LocationData(lat,lon,hash);
 	}
 	
-	public int getLat() {
+	public double getLat() {
 		return latitude;
 	}
 	
-	public int getLon() {
+	public double getLon() {
 		return longitude;
+	}
+	
+	public String getHash() {
+		return geohash;
 	}
 }
