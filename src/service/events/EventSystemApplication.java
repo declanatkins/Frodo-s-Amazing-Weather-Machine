@@ -17,8 +17,10 @@ import org.restlet.service.CorsService;
 
 public class EventSystemApplication extends Application {
 	
-	private static final String WEATHER_KEY = "598563d6c096db6a11b768dc2513e4ad";
 	private static Map<String, EventSearch> results = new HashMap<String, EventSearch>();
+	
+	
+	
 	
 	public Router createInboundRoot() {
 		Router router = new Router(getContext());
