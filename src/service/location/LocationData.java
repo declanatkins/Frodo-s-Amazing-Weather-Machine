@@ -15,7 +15,7 @@ public class LocationData {
 	}
 	
 	public static LocationData create(double lat, double lon) {
-		GeoHash geo = GeoHash.withCharacterPrecision(lat, lon, 12);
+		GeoHash geo = GeoHash.withCharacterPrecision(lat, lon, 9);
 		String hash = geo.toBase32();
 		return new LocationData(lat,lon,hash);
 	}
