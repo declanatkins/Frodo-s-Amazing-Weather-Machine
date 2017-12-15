@@ -75,13 +75,17 @@ public class WeatherData {
 			//the rest are more complex, require seperate objects
 			JsonObject wind = curr.get("wind").getAsJsonObject();
 			double speed = wind.get("speed").getAsDouble();
-			JsonObject rain = curr.get("rain").getAsJsonObject();
-			double precip = 0;
-			for(String key : rain.keySet()) {
-				//only one key in the key set
-				//normally 3h but can change
-				//hence the loop
-				precip = rain.get(key).getAsDouble();
+			double precip = 0;	
+			try{
+				JsonObject rain = curr.get("rain").getAsJsonObject();
+				for(String key : rain.keySet()) {
+					//only one key in the key set
+					//normally 3h but can change
+					//hence the loop
+					precip = rain.get(key).getAsDouble();
+				}
+			} catch (Exception e) {
+				continue;
 			}
 			JsonArray weatherArr = curr.get("weather").getAsJsonArray();
 			JsonObject weatherObj = weatherArr.get(0).getAsJsonObject();

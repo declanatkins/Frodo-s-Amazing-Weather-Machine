@@ -1,7 +1,5 @@
 package service.events;
 
-import java.util.List;
-
 import service.location.LocationData;
 import service.weather.ForecastInfo;
 
@@ -69,4 +67,7 @@ public class Event {
 		return imageHref;
 	}
 	
+	public String getUrl() {
+		return url;
+	}
 }

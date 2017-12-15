@@ -42,6 +42,7 @@ public class TicketMasterSearch {
 								"&unit=" + EventSearch.units +
 								"&geoPoint=" + search.getLocation().getHash() +
 								"&apikey=" + API_KEY);
+				
 				return result;
 			}
 			catch(Exception e) {
@@ -132,12 +133,5 @@ public class TicketMasterSearch {
 		String response = reader.readLine();
 		reader.close();
 		return response;
-	}
-	
-	public static void main(String[] a) {
-		EventSearch res = search(new EventSearch(null,25,LocationData.create(53, -8),"music"));
-		for(Event e : res.getResults()) {
-			System.out.println(e.getImage());
-		}
 	}
 }
