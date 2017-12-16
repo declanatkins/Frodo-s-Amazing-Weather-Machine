@@ -10,15 +10,27 @@ import org.restlet.Component;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.Restlet;
+import org.restlet.data.MediaType;
+import org.restlet.data.Method;
 import org.restlet.data.Protocol;
+import org.restlet.data.Status;
 import org.restlet.routing.Router;
 import org.restlet.service.CorsService;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import service.events.eventbrite.EventbriteSearch;
+import service.events.ticketmaster.TicketMasterSearch;
+import service.location.LocationData;
+import service.users.UserInfo;
 
 
 public class EventSystemApplication extends Application {
 	
 	private static Map<String, EventSearch> results = new HashMap<String, EventSearch>();
-	
+	private static Gson gson = new Gson();
 	
 	public Router createInboundRoot() {
 		Router router = new Router(getContext());
@@ -26,7 +38,50 @@ public class EventSystemApplication extends Application {
 		router.attach("/search", new Restlet() {
 			
 			public void handle(Request request, Response response) {
-				
+				if (request.getMethod() == Method.POST) {
+					try {
+						JsonParser parser = new JsonParser();
+						JsonObject json = (JsonObject) parser.parse(request.getEntityAsText());
+						JsonObject locationObj = json.get("location").getAsJsonObject();
+						LocationData location = LocationData.create(locationObj.get("latitude").getAsDouble(),
+																		locationObj.get("longitude").getAsDouble());
+						String keywords = json.get("keywords").getAsString();
+						int radius = json.get("radius").getAsInt();
+						UserInfo user = gson.fromJson(json.get("user"), UserInfo.class);
+						EventSearch theSearch = new EventSearch(user, radius, location, keywords);
+						theSearch = TicketMasterSearch.search(theSearch);
+						theSearch = EventbriteSearch.search(theSearch);
+						results.put(user.getName(), theSearch);
+						String link = request.getResourceRef().getPath() + "/retrieve/" + user.getName();
+						response.setEntity("{\"link\" : \"" + link + "\"}" , MediaType.APPLICATION_JSON);
+						response.setStatus(Status.SUCCESS_OK);
+					} catch (Exception e) {
+						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+					}
+				}
+				else {
+					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+				}
+			}
+		});
+		
+		router.attach("/events/retrieve/{user_name}", new Restlet() {
+		
+			public void handle(Request request, Response response) {
+				if(request.getMethod() == Method.GET) {
+					String userName = (String) request.getAttributes().get("user_name");
+					EventSearch result = results.get(userName);
+					if (result != null) {
+						response.setEntity(gson.toJson(result.getResults()), MediaType.APPLICATION_JSON);
+						response.setStatus(Status.SUCCESS_OK);
+					}
+					else {
+						response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);
+					}
+				}
+				else {
+					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+				}
 			}
 		});
 		
