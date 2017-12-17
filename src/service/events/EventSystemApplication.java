@@ -65,7 +65,7 @@ public class EventSystemApplication extends Application {
 			}
 		});
 		
-		router.attach("/events/retrieve/{user_name}", new Restlet() {
+		router.attach("/search/retrieve/{user_name}", new Restlet() {
 		
 			public void handle(Request request, Response response) {
 				if(request.getMethod() == Method.GET) {
@@ -88,7 +88,7 @@ public class EventSystemApplication extends Application {
 		return router;
 	}
 	
-public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 		
 		//Add cors to allow browsers to accept the response
 		CorsService corsService = new CorsService();
@@ -100,6 +100,7 @@ public static void main(String[] args) throws Exception {
 		Component component = new Component();
 	    component.getServers().add(Protocol.HTTP, 9001);
 	    component.getClients().add(Protocol.HTTP);
+	    component.getClients().add(Protocol.HTTPS);
 	    component.getDefaultHost().attach("", app);
 	    component.start();
 	}
