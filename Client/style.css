@@ -25,10 +25,11 @@ body{
 }
 
 .content{
+	text-aligh: center;
     justify-content: center;
     display: flex;
 }
-.login{
+.login_page{
     width: 750px;
     height: 300px;
     max-height:300px;
@@ -37,6 +38,23 @@ body{
     box-shadow: 0px 2px 10px;
     text-align: center;
     padding-top: 100px;
+}
+
+/* hide main page at by default (login page shown)*/
+.main_page{
+	
+}
+
+.main_page:input{
+	display:
+    width: 130px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+.main_page:input:focus{
+    width: 100%;
 }
 
 .input_group{

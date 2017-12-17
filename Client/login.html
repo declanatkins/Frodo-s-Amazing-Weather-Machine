@@ -13,52 +13,75 @@
     <div class="header">
         <img src="banner.png" class="banner">
     </div>
+    
     <div class="content">
-        <div class="login" id="cont1">
+    
+        <div class="login_page" id="login_div">
             <form class="login-form" action="javascript:;" onsubmit="login_func(this)">
                 <div class="input_group">
                     <input type="text" name="username" placeholder="username" class="input">
                 </div>
                 <div class="input_group">
                     <input type="text" name="password" placeholder="password" class="input password">
-                </div>    
+                </div>
+                
                 <button type="submit" class="button" id="logbtn">Login</button>
                 <button type="button" class="button" id="regStart" onclick="begin_reg()">New User?</button>
             </form>
         </div>
-        <div class="login" id="cont1Reg">
+        
+        <div class="login_page" id="register_div">
             <form class="login-form" action="javascript:;" onsubmit="reg_func(this)">
+            
                 <div class="input_group">
                     <input type="text" name="username" placeholder="username" class="input">
                 </div>
+                
                 <div class="input_group">
                     <input type="text" name="password" placeholder="password" class="input password">
                 </div>    
+                
                 <button type="submit" class="button" id="regbtn">Register</button>
             </form>
         </div>
-        <div class="search" id="cont2"></div>
-        <div class="results" id="cont3"></div>
-    </div>
+        
+        <div class="main_page" id="main_div">
+        
+			<div class="main_page" id="search_input">
+				<form class="login-form" action="javascript:;" onsubmit="search_func(this)">
+            
+	                <div class="input_group">
+	                    <input type="text" name="event_name" placeholder="Name of Event" class="input">
+	                </div>
+	                
+	                <button type="submit" class="button" id="start_search">Search</button>
+            	</form>
+			</div>
+        
+	        <div id="search_result" style="display:none">
+        		<button type="submit" class="button" id="searchBtn">Search for an Event</button>
+        	</div>
+        	
+        </div>
+        
+    </div> 
+            
     <script type="text/javascript">
 
         //globals
         var currLocation = null;
 
         //ENDPOINTS
-        var usersBase = "http://127.0.0.1:9000";
+        var usersBase = "http://127.0.0.1:9001";
         var loginEndpoint = "http://127.0.0.1:9000/login"
         var registerEndpoint = "http://127.0.0.1:9000/register";
 
-         //hide the search and results sections on load
+         //hide the register div and ask for location on load
          $(document).ready(function (){
-            var searchCont = document.getElementById("cont2");
-            var resultCont = document.getElementById("cont2");
-            var regCont = document.getElementById("cont1Reg");
-            searchCont.style.display = "None";
-            resultCont.style.display = "None";
-            regCont.style.display = "None";
-            getLocation();
+        	 document.getElementById('register_div').style.display = 'none';
+        	 document.getElementById('main_div').style.display = 'none';
+        	 
+        	 getLocation();
         });
 
         //request login
@@ -74,12 +97,25 @@
                 type : 'POST',
                 data : formData,
                 success: function(result){
+                	
+                	//alert("Login Successful!");
                     getUserInfo(result["link"]);
+                    logged_in();
                 },
                 error: function(error){
-                    console.log('here');
+                	
+                	alert("Login Failed!");
+                    console.log(error);
                 }
             });
+        }
+        
+        function logged_in(){
+        	document.getElementById('login_div').style.display = 'none'; //hide login page elements
+        	document.getElementById('register_div').style.display = 'none';
+        	
+        	document.getElementById('main_div').style.display = 'block';
+        	
         }
 
         function getUserInfo(link){ 
@@ -98,8 +134,8 @@
         
         //register
         function begin_reg(){
-            document.getElementById("cont1").style.display = "None";
-            document.getElementById("cont1Reg").style.display = "block";
+        	document.getElementById('login_div').style.display = 'none';
+        	document.getElementById('register_div').style.display = 'block';
         }
 
         function reg_func(form){
@@ -113,13 +149,42 @@
                 type : 'POST',
                 data : formData,
                 success: function(result){
-                    document.getElementById("cont1").style.display = "block";
-                    document.getElementById("cont1Reg").style.display = "None";
+                	//if successful register
+                	
+                	alert("Succesfully Registered!");
+                    document.getElementById("register_div").style.display = "none";
+                    document.getElementById("login_div").style.display = "block";
                 },
                 error: function(error){
-                    console.log('here');
+                	//if unsuccessful login
+                	
+                	alert("Registration Failed, Try again with different credentials");
+                    console.log(error);
                 }
             });
+        }
+        
+        function search_func(form){
+        	var formData = {
+                    "event_name" : form["event_name"].value
+                };
+                console.log(formData);
+                $.ajax({
+                    //url : registerEndpoint,
+                    type : 'POST',
+                    data : formData,
+                    success: function(result){
+                    	//if successful search
+                        document.getElementById("search_input").style.display = "none";
+                        document.getElementById("search_result").style.display = "block";
+                    },
+                    error: function(error){
+                    	//if unsuccessful search
+                    	
+                    	alert("Search Failed, Try again with different parameters");
+                        console.log(error);
+                    }
+                });
         }
 
         function getLocation(){
