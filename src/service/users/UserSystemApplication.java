@@ -18,10 +18,6 @@ import org.restlet.routing.Router;
 import org.restlet.service.CorsService;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import service.events.Event;
 
 public class UserSystemApplication extends Application{
 	
@@ -88,64 +84,19 @@ public class UserSystemApplication extends Application{
 			public void handle(Request request, Response response) {
 				if(request.getMethod() == Method.POST) {
 					String input = request.getEntityAsText();
-					try {
-						JsonParser parser = new JsonParser();
-						JsonObject json = (JsonObject) parser.parse(input);
-						String username = json.get("username").getAsString();
-						String password = json.get("password").getAsString();
-						boolean success = database.insertNewUser(username, password);
-						if(success) {
-							response.setStatus(Status.SUCCESS_OK);
-						}
-						else {
-							response.setStatus(Status.CLIENT_ERROR_CONFLICT);
-						}
-					} catch (Exception e) {
-						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
-					}
-					
-				}
-				else {
-					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
-				}
-			}
-		});
-		
-		router.attach("/add/event/{user_name}", new Restlet() {
-			public void handle(Request request, Response response) {
-				if(request.getMethod() == Method.POST) {
-					String userName = (String) request.getAttributes().get("user_name");
-					String req = request.getEntityAsText();
-					Event theEvent = gson.fromJson(req, Event.class);
-					UserInfo profile = users.get(userName);
-					if (profile == null) {
-						response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);
-					}
-					else {
-						database.insertEvent(profile.getID(), gson.toJson(theEvent));
-					}
-					
-				}
-				else {
-					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
-				}
-			}
-		});
-
-		router.attach("/get/event/{user_name}", new Restlet(){
-			public void handle(Request request, Response response){
-				if(request.getMethod() == Method.GET){
-					String userName = (String) request.getAttributes().get("user_name");
-					UserInfo user = users.get(userName);
-					Event result = database.getLastEvent(user);
-					if (result == null){
-						response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);
-					}
-					else{
+					input = input.replace("username=", "#");
+					input = input.replace("&password=", "#");
+					input = input.replace("}", "");
+					String[] substr = input.split("#");
+					boolean success = database.insertNewUser(substr[1], substr[2]);
+					if(success) {
 						response.setStatus(Status.SUCCESS_OK);
 					}
+					else {
+						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+					}
 				}
-				else{
+				else {
 					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
 				}
 			}
@@ -163,7 +114,7 @@ public class UserSystemApplication extends Application{
 		app.getServices().add(corsService);
 		
 		Component component = new Component();
-	    component.getServers().add(Protocol.HTTP, 9001);
+	    component.getServers().add(Protocol.HTTP, 9000);
 	    component.getClients().add(Protocol.HTTP);
 	    component.getDefaultHost().attach("", app);
 	    component.start();

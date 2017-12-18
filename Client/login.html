@@ -70,10 +70,11 @@
         var userInfo = null;
 
         //ENDPOINTS
-        var usersBase = "http://127.0.0.1:9001";
+        var usersBase = "http://127.0.0.1:9000";
         var loginEndpoint = "http://127.0.0.1:9000/login"
         var registerEndpoint = "http://127.0.0.1:9000/register";
-        var searchEndpoint = "http://127.0.0.1:9000/search"
+        var searchEndpoint = "http://127.0.0.1:9001/search";
+       	var retrieveEndpoint = "http://127.0.0.1:9001/search/retrieve/";
         
 
          //hide the register div and ask for location on load
@@ -83,31 +84,6 @@
         	 
         	 getLocation();
         });
-
-        //request login
-        function login_func(form){
-            var formData = {
-                "username" : form["username"].value,
-                "password" : form["password"].value
-            };
-            console.log(formData);
-            $.ajax({
-                url : loginEndpoint,
-                type : 'POST',
-                data : formData,
-                success: function(result){
-                	
-                	alert("Login Successful!");
-                    getUserInfo(result["link"]);
-                    logged_in();
-                },
-                error: function(error){
-                	
-                	alert("Login Failed!");
-                    console.log(error);
-                }
-            });
-        }
         
         //logged in
         function logged_in(){
@@ -134,7 +110,13 @@
         	
         	submitSearch(formData);
         	
-        	var search = JSON.parse(searchResults);
+        	var table_html = "";
+        	//var table_html = table_from_json(searchResults);
+        	
+        	var div = document.createElement(div);
+        	div.Id ='search_table';
+        	div.innerHTML = table_html;
+        	document.getElementById('search_result').appendChild(div);
         }
         
         function table_from_json(json){
@@ -154,36 +136,37 @@
         		html += '</tr>';
         	}
         	html+= '</table>';
+        	return html;
         }
         
         function submitSearch(formData){
             var fData = {
                 "user" : userInfo,
                 "keywords" : formData.keywords,
-                "radius" : formData.radius,
-                "latitude" : currLocation.coords.latitude,
-                "longitude" : currLocation.coords.longitude
+                "radius" : parseInt(formData.radius),
+                "location" : {
+                	"latitude" : currLocation.coords.latitude,
+                    "longitude" : currLocation.coords.longitude
+                    }
             }
             
-            console.log(fData);
+            console.log("fData :" + JSON.stringify(fData));
 
             $.ajax({
                 type: "POST",
                 data: fData,
                 url: searchEndpoint,
                 success: function(result){
-                	alert("search success");
+                	console.log("search success : " + JSON.stringify(result));
                 	retrieveSearchResults(result["link"]);
                 },
                 error: function(error){
-                	alert("search failed");
-                    console.log(error);
+                    console.log(JSON.stringify(error));
                 }
             });
         }
 
         function retrieveSearchResults(link){
-        	alert(retrieveResults);
             $.ajax({
                 type: "GET",
                 url: retrieveEndpoint + link,
@@ -196,6 +179,7 @@
                 }
             });
         }
+        
         function reg_func(form){
             var formData = {
                 "username" : form["username"].value,
@@ -210,6 +194,32 @@
                 success: function(result){
                 },
                 error: function(error){
+                	alert("ERROR: " + JSON.stringify(error));
+                }
+            });
+        }
+        
+        //request login
+        function login_func(form){
+            var formData = {
+                "username" : form["username"].value,
+                "password" : form["password"].value
+            };
+
+            $.ajax({
+                url : loginEndpoint,
+                type : 'POST',
+                data : formData,
+                success: function(result){
+                	
+                	alert("Login Successful!");
+                    getUserInfo(result["link"]);
+                    logged_in();
+                },
+                error: function(error){
+                	
+                	alert("Login Failed!");
+                    console.log(error);
                 }
             });
         }
@@ -220,6 +230,9 @@
                 type : 'GET',
                 success: function(result){
                     userInfo = result;
+                    retrieveEndpoint += result.userName
+
+                    alert(retrieveEndpoint);
                     console.log(result);
                 },
                 error: function(error){

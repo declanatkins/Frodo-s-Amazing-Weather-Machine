@@ -98,7 +98,7 @@ public class EventSystemApplication extends Application {
 		app.getServices().add(corsService);
 		
 		Component component = new Component();
-	    component.getServers().add(Protocol.HTTP, 9000);
+	    component.getServers().add(Protocol.HTTP, 9001);
 	    component.getClients().add(Protocol.HTTP);
 	    component.getClients().add(Protocol.HTTPS);
 	    component.getDefaultHost().attach("", app);
