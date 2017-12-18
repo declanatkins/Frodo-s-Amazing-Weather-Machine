@@ -41,7 +41,6 @@ public class EventSystemApplication extends Application {
 				if (request.getMethod() == Method.POST) {
 					try {
 						JsonParser parser = new JsonParser();
-						System.out.println(request.getEntityAsText());
 						JsonObject json = (JsonObject) parser.parse(request.getEntityAsText());
 						JsonObject locationObj = json.get("location").getAsJsonObject();
 						LocationData location = LocationData.create(locationObj.get("latitude").getAsDouble(),
@@ -55,7 +54,6 @@ public class EventSystemApplication extends Application {
 						results.put(user.getName(), theSearch);
 						String link = request.getResourceRef().getPath() + "/retrieve/" + user.getName();
 						response.setEntity("{\"link\" : \"" + link + "\"}" , MediaType.APPLICATION_JSON);
-						System.out.println(link);
 						response.setStatus(Status.SUCCESS_OK);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -75,7 +73,20 @@ public class EventSystemApplication extends Application {
 					String userName = (String) request.getAttributes().get("user_name");
 					EventSearch result = results.get(userName);
 					if (result != null) {
-						response.setEntity(gson.toJson(result.getResults()), MediaType.APPLICATION_JSON);
+						String resJson = "{ \"success\":\"true\", \"results\":[";
+						boolean isFirst = true;
+						for (Event e : result.getResults()) {
+							if(!isFirst) {
+								resJson += ',';
+							}
+							else {
+								isFirst = false;
+							}
+							resJson += gson.toJson(e);
+						}
+						resJson += "]}";
+						System.out.println(resJson);
+						response.setEntity(resJson, MediaType.APPLICATION_JSON);
 						response.setStatus(Status.SUCCESS_OK);
 					}
 					else {

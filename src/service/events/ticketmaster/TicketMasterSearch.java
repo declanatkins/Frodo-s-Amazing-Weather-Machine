@@ -80,11 +80,17 @@ public class TicketMasterSearch {
 					break;
 				}
 			}
-			JsonObject dates = thisEvent.get("dates").getAsJsonObject();
-			JsonObject startDate = dates.get("start").getAsJsonObject();
-			String datetime = startDate.get("dateTime").getAsString();
-			datetime = datetime.replace('T', ' ');
-			datetime = datetime.replace("Z", "");
+			String datetime = "";
+			try {
+				JsonObject dates = thisEvent.get("dates").getAsJsonObject();
+				JsonObject startDate = dates.get("start").getAsJsonObject();
+				datetime = startDate.get("dateTime").getAsString();
+				datetime = datetime.replace('T', ' ');
+				datetime = datetime.replace("Z", "");
+			}
+			catch (Exception e){
+				continue;
+			}
 			String imgURL = "";
 			JsonArray images = thisEvent.get("images").getAsJsonArray();
 			for(JsonElement imgElem : images) {

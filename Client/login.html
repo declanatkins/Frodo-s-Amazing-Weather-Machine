@@ -51,7 +51,7 @@
             	</form>
 			</div>
         
-	        <div id="search_result" style="display:none">
+	        <div id="search_result" style="display:none" class="result_box">
 	        
         	</div>
         	
@@ -151,26 +151,46 @@
         }
         
         function show_search_results(){
-        	console.log("Search Results :" + searchResults + ":");
-        	
-        	var html = "<table>";
-        	for(var i=0; i<searchResults.length; i++){
-        		var obj = result[i];
-        		
-        		html += '<tr>';
-        		for(var key in obj){        			
-        			html += '<td>';
-       				html += obj[key];
-        			html += '</td>';
-       			}
-        		html += '</tr>';
-        	}
-        	if(html == '<table>'){
+        	document.getElementById('search_input').style.display = 'none';
+            document.getElementById('search_result').style.display = 'block';
+            searchResults = JSON.stringify(searchResults);
+            searchResults = JSON.parse(searchResults);
+            var html = '<div class="table_div">';
+            
+            for(var i=0;i<searchResults.results.length-2;i+=3){
+                var url1 = searchResults.results[i].url;
+                var url2 = searchResults.results[i+1].url;
+                var url3 = searchResults.results[i+2].url;
+                var imgUrl1 = searchResults.results[i].imageHref;
+                var imgUrl2 = searchResults.results[i+1].imageHref;
+                var imgUrl3 = searchResults.results[i+2].imageHref;
+                var name1 = searchResults.results[i].name;
+                var name2 = searchResults.results[i+1].name;
+                var name3 = searchResults.results[i+2].name;
+                html += '<div class="row"><div class="left">';
+                html += "<a href=" + url1 + ">";
+                html += '<img class="result_img" width="200" height="112" align="middle" src=' + imgUrl1 + '></a>';
+                html += "</div>";
+               // html += name1;
+                html += '<div class="middle">';
+                html += "<a href=" + url2 + ">";
+                html += '<img class="result_img width="200" height="112" align="middle" src=' + imgUrl2 + '></a>';
+                html += "</div>";
+               // html += name2;
+                html += '<div class="right">';
+                html += "<a href=" + url3 + ">";
+                html += '<img class="result_img width="200" height="112" align="middle" src=' + imgUrl3 + '></a>';
+                html += "</div>";
+                html += "</div>";
+            }
+
+        	if(html == '<div class="table">'){
         		alert("Sorry, no results found! Please try again");
         		return;
         	}
         	
-        	return html + '</table>';
+            document.getElementById("search_result").innerHTML= html + '</tbody></table>';
+
         }
         
         function reg_func(form){

@@ -1,0 +1,397 @@
+{
+    "success": "true",
+    "results": [
+        {
+            "name": "The National",
+            "locationName": "Donnybrook Stadium,Dublin",
+            "location": {
+                "latitude": 53.32078047,
+                "longitude": -6.23373806,
+                "geohash": "gc7x64u8p"
+            },
+            "dateTimeStamp": "2018-06-15 13:00:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/30a/b1b2b2de-23a0-4137-91e5-ab9ab5da830a_567691_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/1800534BFD70E204"
+        },
+        {
+            "name": "The National",
+            "locationName": "Donnybrook Stadium,Dublin",
+            "location": {
+                "latitude": 53.32078047,
+                "longitude": -6.23373806,
+                "geohash": "gc7x64u8p"
+            },
+            "dateTimeStamp": "2018-06-16 13:00:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/30a/b1b2b2de-23a0-4137-91e5-ab9ab5da830a_567691_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/1800534BFD71E206"
+        },
+        {
+            "name": "Future Islands",
+            "locationName": "Donnybrook Stadium,Dublin",
+            "location": {
+                "latitude": 53.32078047,
+                "longitude": -6.23373806,
+                "geohash": "gc7x64u8p"
+            },
+            "dateTimeStamp": "2018-06-17 13:00:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/c5d/894ce434-c989-4edb-8ce4-5bd8e3d1cc5d_541401_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/180053579717BF54"
+        },
+        {
+            "name": "Bruno Mars - Official Platinum Tickets",
+            "locationName": "Marlay Park,Dublin",
+            "location": {
+                "latitude": 53.27812849,
+                "longitude": -6.26819372,
+                "geohash": "gc7x16gxs"
+            },
+            "dateTimeStamp": "2018-07-12 16:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/3a3/01f658d8-470f-4276-a9c2-09289f2723a3_575931_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/18005381E00AF115"
+        },
+        {
+            "name": "Bruno Mars",
+            "locationName": "Marlay Park,Dublin",
+            "location": {
+                "latitude": 53.27812849,
+                "longitude": -6.26819372,
+                "geohash": "gc7x16gxs"
+            },
+            "dateTimeStamp": "2018-07-12 16:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/3a3/01f658d8-470f-4276-a9c2-09289f2723a3_575931_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/180053818A86484A"
+        },
+        {
+            "name": "The Key Notes",
+            "locationName": "RDS Concert Hall,Dublin",
+            "location": {
+                "latitude": 53.32770131,
+                "longitude": -6.22776747,
+                "geohash": "gc7x6k106"
+            },
+            "dateTimeStamp": "2017-12-18 20:00:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/108/dd182ceb-deb0-4599-9fa4-8863beccf108_546671_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/18005359EA4BECAE"
+        },
+        {
+            "name": "80s Mania",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2017-12-22 20:00:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/e72/4b9b762d-f0dd-43de-ad82-1c13c4750e72_128611_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/now-thats-what-i-call-the-purty-kitchen-tickets/7877365?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "Bee Gees",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2017-12-29 19:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/jive-talking--bee-the-purty-kitchen-tickets/7842725?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "George Michael",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-01-19 19:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/576/c6cb16ce-d18b-4266-8d14-3d890f7c7576_376341_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/george-michael-tribute-the-purty-kitchen-tickets/7860425?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "George Michael",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-01-20 19:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/576/c6cb16ce-d18b-4266-8d14-3d890f7c7576_376341_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/george-michael-tribute-the-purty-kitchen-tickets/7839705?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "Elvis",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-02-17 19:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/c6c/d6d406a7-f00e-48ef-be9a-d2392ab2fc6c_507311_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/kevin-doyle-is-not-elvis-the-purty-kitchen-tickets/7877285?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "Jerry Fish",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-03-03 19:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/15c/c76f96a8-7bf9-428d-a203-24f7fc59515c_206311_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/an-evening-with-jerry-fish-the-purty-kitchen-tickets/7904235?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "Complete Madness",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-03-17 19:30:00",
+            "categories": "Pop",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/c/4f2/0109888a-61b5-4525-8432-b026ef04f4f2_105631_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/complete-madness-the-purty-kitchen-tickets/7904305?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "Badge Live",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-03-30 18:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/badge-live-the-purty-kitchen-tickets/7904335?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "Bruno Mars - Early Entry Package",
+            "locationName": "Marlay Park,Dublin",
+            "location": {
+                "latitude": 53.27812849,
+                "longitude": -6.26819372,
+                "geohash": "gc7x16gxs"
+            },
+            "dateTimeStamp": "2018-07-12 16:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/3a3/01f658d8-470f-4276-a9c2-09289f2723a3_575931_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/18005381A8A5CDD9"
+        },
+        {
+            "name": "Billy Joel - Official Platinum Tickets",
+            "locationName": "Aviva Stadium,Dublin",
+            "location": {
+                "latitude": 53.335237,
+                "longitude": -6.228468,
+                "geohash": "gc7x6m2s6"
+            },
+            "dateTimeStamp": "2018-06-23 19:00:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/dce/f1af869f-8fc6-45a4-838e-066aed222dce_226121_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/18005346EB302489"
+        },
+        {
+            "name": "Billy Joel",
+            "locationName": "Aviva Stadium,Dublin",
+            "location": {
+                "latitude": 53.335237,
+                "longitude": -6.228468,
+                "geohash": "gc7x6m2s6"
+            },
+            "dateTimeStamp": "2018-06-23 19:00:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/a/dce/f1af869f-8fc6-45a4-838e-066aed222dce_226121_RECOMENDATION_16_9.jpg",
+            "url": "http://www.ticketmaster.ie/event/18005344C8A1BFC2"
+        },
+        {
+            "name": "Slippery When Wet - Bon Jovi Tribute",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-01-12 19:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/slippery-when-wet--the-purty-kitchen-tickets/7900525?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "The Smiths \u0026 Morrissey Tribute Night",
+            "locationName": "The Purty Kitchen,Co Dublin",
+            "location": {
+                "latitude": 53.295089,
+                "longitude": -6.148291,
+                "geohash": "gc7xhn4fq"
+            },
+            "dateTimeStamp": "2018-02-03 19:30:00",
+            "categories": "Rock",
+            "source": "ticketmaster",
+            "imageHref": "https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RECOMENDATION_16_9.jpg",
+            "url": "https://www.ticketweb.ie/event/these-charming-men--the-purty-kitchen-tickets/7852695?REFERRAL_ID\u003dtmfeed"
+        },
+        {
+            "name": "HCK 70th Anniversary Celebration",
+            "locationName": "RDS Concert HallDublin 4",
+            "location": {
+                "latitude": 53.3238292,
+                "longitude": -6.230369800000062,
+                "geohash": "gc7x65r1v"
+            },
+            "dateTimeStamp": "2017-12-19 19:30:00",
+            "categories": "Family \u0026 Education",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F36826990%2F164857761453%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C51%2C1754%2C877\u0026s\u003dbcf4a7256d29107b5eea71637f552760",
+            "url": "https://www.eventbrite.ie/e/hck-70th-anniversary-celebration-tickets-38532162736?aff\u003debapi"
+        },
+        {
+            "name": "Moya Brennan - An Irish Christmas 10th Anniversary- presented by Blathnaid Ní Chofaigh",
+            "locationName": "Monkstown Parish ChurchMonkstown",
+            "location": {
+                "latitude": 53.2936168,
+                "longitude": -6.1532955999999785,
+                "geohash": "gc7x5vz3c"
+            },
+            "dateTimeStamp": "2017-12-21 19:00:00",
+            "categories": "Music",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F35697440%2F227807672728%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C0%2C2160%2C1080\u0026s\u003d208ec763562bb81390aa089335b78f96",
+            "url": "https://www.eventbrite.ie/e/moya-brennan-an-irish-christmas-10th-anniversary-presented-by-blathnaid-ni-chofaigh-tickets-38132764124?aff\u003debapi"
+        },
+        {
+            "name": "Clonskeagh Castle New Year\u0027s Eve",
+            "locationName": "Clonskeagh CastleDublin 14",
+            "location": {
+                "latitude": 53.311141,
+                "longitude": -6.245900699999993,
+                "geohash": "gc7x3bgzg"
+            },
+            "dateTimeStamp": "2017-12-31 20:00:00",
+            "categories": "Music",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F38407828%2F57405659291%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C129%2C4128%2C2064\u0026s\u003d15fb6857beffab14f0d72715f2135125",
+            "url": "https://www.eventbrite.ie/e/clonskeagh-castle-new-years-eve-tickets-41040302650?aff\u003debapi"
+        },
+        {
+            "name": "Monkstown \u0027Music for Babies\u0027 ",
+            "locationName": "Knox HallDublin",
+            "location": {
+                "latitude": 53.2949057,
+                "longitude": -6.162140499999964,
+                "geohash": "gc7x5y0c7"
+            },
+            "dateTimeStamp": "2018-01-10 11:00:00",
+            "categories": "Family \u0026 Education",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34509703%2F95130422973%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C118%2C2030%2C1015\u0026s\u003ddb74fc1340b35cd33cf0d07fb0083e16",
+            "url": "https://www.eventbrite.ie/e/monkstown-music-for-babies-tickets-37257593465?aff\u003debapi"
+        },
+        {
+            "name": "Monkstown \u0027Music for Babies\u0027 ",
+            "locationName": "Knox HallDublin",
+            "location": {
+                "latitude": 53.2949057,
+                "longitude": -6.162140499999964,
+                "geohash": "gc7x5y0c7"
+            },
+            "dateTimeStamp": "2018-02-14 11:00:00",
+            "categories": "Family \u0026 Education",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34509763%2F95130422973%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C118%2C2030%2C1015\u0026s\u003da8edadf13ebe346b913c8f1f5d4a2e6e",
+            "url": "https://www.eventbrite.ie/e/monkstown-music-for-babies-tickets-37257621549?aff\u003debapi"
+        },
+        {
+            "name": "Monkstown \u0027Music for Babies\u0027 ",
+            "locationName": "Knox HallDublin",
+            "location": {
+                "latitude": 53.2949057,
+                "longitude": -6.162140499999964,
+                "geohash": "gc7x5y0c7"
+            },
+            "dateTimeStamp": "2018-03-14 11:00:00",
+            "categories": "Family \u0026 Education",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34509813%2F95130422973%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C118%2C2030%2C1015\u0026s\u003db0af0c3d7e13d5050b2103e1c611f97d",
+            "url": "https://www.eventbrite.ie/e/monkstown-music-for-babies-tickets-37257659663?aff\u003debapi"
+        },
+        {
+            "name": "Monkstown \u0027Music for Babies\u0027 ",
+            "locationName": "Knox HallDublin",
+            "location": {
+                "latitude": 53.2949057,
+                "longitude": -6.162140499999964,
+                "geohash": "gc7x5y0c7"
+            },
+            "dateTimeStamp": "2018-04-11 11:00:00",
+            "categories": "Family \u0026 Education",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34509858%2F95130422973%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C118%2C2030%2C1015\u0026s\u003d971809d957f650e05559aae39507f707",
+            "url": "https://www.eventbrite.ie/e/monkstown-music-for-babies-tickets-37257693765?aff\u003debapi"
+        },
+        {
+            "name": "Monkstown \u0027Music for Babies\u0027 ",
+            "locationName": "Knox HallDublin",
+            "location": {
+                "latitude": 53.2949057,
+                "longitude": -6.162140499999964,
+                "geohash": "gc7x5y0c7"
+            },
+            "dateTimeStamp": "2018-05-09 11:00:00",
+            "categories": "Family \u0026 Education",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34509903%2F95130422973%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C118%2C2030%2C1015\u0026s\u003d3b85e4a7279773795c2ba35f89adcda2",
+            "url": "https://www.eventbrite.ie/e/monkstown-music-for-babies-tickets-37257714828?aff\u003debapi"
+        },
+        {
+            "name": "Monkstown \u0027Music for Babies\u0027 ",
+            "locationName": "Knox HallDublin",
+            "location": {
+                "latitude": 53.2949057,
+                "longitude": -6.162140499999964,
+                "geohash": "gc7x5y0c7"
+            },
+            "dateTimeStamp": "2018-06-13 11:00:00",
+            "categories": "Family \u0026 Education",
+            "source": "Eventbrite",
+            "imageHref": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34509962%2F95130422973%2F1%2Foriginal.jpg?h\u003d200\u0026w\u003d450\u0026rect\u003d0%2C118%2C2030%2C1015\u0026s\u003dfe641933fb36410f599035f358850964",
+            "url": "https://www.eventbrite.ie/e/monkstown-music-for-babies-tickets-37257753945?aff\u003debapi"
+        }
+    ]
+}
