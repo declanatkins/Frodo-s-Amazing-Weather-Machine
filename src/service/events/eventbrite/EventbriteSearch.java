@@ -28,8 +28,9 @@ public class EventbriteSearch {
 	public static EventSearch search(EventSearch search) {
 		
 		String response = executeQuery(search);
-		search.addResults(parsePage(response));
-		
+		if(search != null) {
+			search.addResults(parsePage(response));
+		}
 		return search;
 	}
 	
@@ -46,7 +47,7 @@ public class EventbriteSearch {
 			
 			return response;
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 	}
@@ -57,8 +58,9 @@ public class EventbriteSearch {
 	 *
 	 */
 	private static String requestURL(String url) throws Exception {
-		ClientResource resource = new ClientResource(url);
-		Representation rep = resource.get();
+		System.out.println(url);
+		ClientResource res = new ClientResource(url);
+		Representation rep = res.get();
 		return rep.getText();
 	}
 	

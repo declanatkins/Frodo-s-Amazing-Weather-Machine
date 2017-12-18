@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.google.gson.Gson;
+
+import service.events.Event;
+
 public class DatabaseHandler {
 	
 	private Connection conn;
@@ -31,9 +35,7 @@ public class DatabaseHandler {
 						"CREATE TABLE IF NOT EXISTS events (\n" +
 						"id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
 						"userID INTEGER NOT NULL,\n" +
-						"eventID TEXT NOT NULL,\n" +
-						"eventCats TEXT NOT NULL,\n" + 
-						"source TEXT NOT NULL\n);";
+						"event TEXT NOT NULL);\n";
 			String querySearches =//events searches
 						"CREATE TABLE IF NOT EXISTS event_searches (\n" +
 						"id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
@@ -84,8 +86,13 @@ public class DatabaseHandler {
 	public boolean insertNewUser(String userName, String password) {
 		try {
 			//prelim test to see if user exists already
-			UserInfo user = getUserProfile(userName,password);
-			if (user != null) {
+			String testQuery = 
+						"SELECT FROM users" +
+						"WHERE userName = ?";
+			PreparedStatement testStatement = conn.prepareStatement(testQuery);
+			testStatement.setString(1, userName);
+			ResultSet checkResults = testStatement.executeQuery();
+			if(checkResults.first()){//if there was a row that exists
 				return false;
 			}
 			String query = 
@@ -102,20 +109,41 @@ public class DatabaseHandler {
 		}
 	}
 	
-	public boolean insertEvent(int userID, String eventID, String source) {
+	public boolean insertEvent(int userID, String event) {
 		try {
 			String query = 
-					"INSERT INTO events(userID,eventID,source)\n" +
-					"VALUES(?,?,?)";
+					"INSERT INTO events(userID,event)\n" +
+					"VALUES(?,?)";
 			PreparedStatement prepState = conn.prepareStatement(query);
 			prepState.setInt(1, userID);
-			prepState.setString(2, eventID);
-			prepState.setString(3, source);
+			prepState.setString(2, event);
 			prepState.execute();
 			return true;
 		} catch (SQLException e) {
 			System.err.println("Failed inserting event");
 			return false;
+		}
+	}
+
+	public Event getLastEvent(UserInfo user){
+		try{
+			String query = 
+					"SELECT FROM events\n" +
+					"WHERE userID = ?";
+			PreparedStatement prepState = conn.prepareStatement(query);
+			prepState.setInt(1,user.getID());
+			ResultSet results = prepState.executeQuery();
+			if(results.last()){
+				String eventStr = results.getString(1);
+				Gson gson = new Gson();
+				Event event = gson.fromJson(eventStr, Event.class);
+				return event;
+			}else{
+				return null;
+			}	
+		}
+		catch(Exception e){
+			return null;
 		}
 	}
 }
