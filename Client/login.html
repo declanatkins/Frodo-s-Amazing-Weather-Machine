@@ -101,20 +101,10 @@
         	var fData = {
                     "user" : userInfo,
                     "keywords" : form["keywords"].value,
-        	
-        	for(var i=0; i<result.length; i++){
-        		var obj = result[i];
-        		
-        		html += '<tr>';
-        		for(var key in obj){        			
-        			html += '<td>';
-       				html += obj[key];
-        			html += '</td>';
-       			}
-        		html += '</tr>';
+                    "radius" : parseInt(form["radius"].value)
         	}
-        	html+= '</table>';
-        	return html;
+        	
+        	submitSearch(fData);
         }
         
         function submitSearch(formData){
@@ -139,22 +129,48 @@
                 	retrieveSearchResults(result["link"]);
                 },
                 error: function(error){
-                    console.log(JSON.stringify(error));
+                    console.log("Search-Error:" + JSON.stringify(error));
+            		alert("Sorry, the search errored! Please try again");
                 }
             });
         }
+        
         function retrieveSearchResults(link){
             $.ajax({
                 type: "GET",
                 url: retrieveEndpoint + link,
                 success: function(result){
-                	alert("Search Success");
                 	searchResults = result;
+                	show_search_results();
                 },
                 error: function(error){
-                    console.log(error);
+                    console.log("Search-Error:"+error);
+            		alert("Sorry, an error occurred! Please try again");
                 }
             });
+        }
+        
+        function show_search_results(){
+        	console.log("Search Results :" + searchResults + ":");
+        	
+        	var html = "<table>";
+        	for(var i=0; i<searchResults.length; i++){
+        		var obj = result[i];
+        		
+        		html += '<tr>';
+        		for(var key in obj){        			
+        			html += '<td>';
+       				html += obj[key];
+        			html += '</td>';
+       			}
+        		html += '</tr>';
+        	}
+        	if(html == '<table>'){
+        		alert("Sorry, no results found! Please try again");
+        		return;
+        	}
+        	
+        	return html + '</table>';
         }
         
         function reg_func(form){
