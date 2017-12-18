@@ -44,13 +44,10 @@
         
 			<div class="main_page" id="search_input">
 				<form class="login-form" action="javascript:;" onsubmit="search_func(this)">
-            
-	                <div class="input_group">
-	                    <input type="text" name="keywords" placeholder="Keywords for Search" class="input"><br>
-	                    <h4>Range to Event (in km)</h4>
-	                    <input type="number" name="radius" placeholder="Distance to Event (km)" class="input"><br><br>
-	                    <button type="submit" class="button" id="start_search">Search</button>
-	                </div>
+                    <input type="text" name="keywords" placeholder="Keywords for Search" class="input"><br>
+                    <h4>Range to Event (in km)</h4>
+                    <input type="number" name="radius" placeholder="Distance to Event (km)" class="input"><br><br>
+                    <button type="submit" class="button" id="start_search">Search</button>
             	</form>
 			</div>
         
@@ -68,6 +65,7 @@
         var currLocation = null;
         var searchResults = null;
         var userInfo = null;
+        var sampleJson = null;
 
         //ENDPOINTS
         var usersBase = "http://127.0.0.1:9000";
@@ -99,30 +97,10 @@
         	document.getElementById('register_div').style.display = 'block';
         }
 
-        
-        
         function search_func(form){
-        	var formData = {
+        	var fData = {
+                    "user" : userInfo,
                     "keywords" : form["keywords"].value,
-                    "radius" : form["radius"].value
-                    };
-        	alert(formData.keywords + ":" + formData.radius);
-        	
-        	submitSearch(formData);
-        	
-        	var table_html = "";
-        	//var table_html = table_from_json(searchResults);
-        	
-        	var div = document.createElement(div);
-        	div.Id ='search_table';
-        	div.innerHTML = table_html;
-        	document.getElementById('search_result').appendChild(div);
-        }
-        
-        function table_from_json(json){
-        	var result = JSON.parse(json);
-        	
-        	var html = '<table>';
         	
         	for(var i=0; i<result.length; i++){
         		var obj = result[i];
@@ -165,7 +143,6 @@
                 }
             });
         }
-
         function retrieveSearchResults(link){
             $.ajax({
                 type: "GET",
@@ -231,8 +208,6 @@
                 success: function(result){
                     userInfo = result;
                     retrieveEndpoint += result.userName
-
-                    alert(retrieveEndpoint);
                     console.log(result);
                 },
                 error: function(error){
