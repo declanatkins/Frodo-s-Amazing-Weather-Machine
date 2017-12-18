@@ -79,6 +79,7 @@ public class DatabaseHandler {
 			UserInfo profile = new UserInfo(userName, userID);
 			return profile;
 		} catch (SQLException e) {
+			System.out.println("here");
 			return null;
 		}
 	}

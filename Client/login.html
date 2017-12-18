@@ -72,7 +72,7 @@
         var loginEndpoint = "http://127.0.0.1:9000/login"
         var registerEndpoint = "http://127.0.0.1:9000/register";
         var searchEndpoint = "http://127.0.0.1:9001/search";
-       	var retrieveEndpoint = "http://127.0.0.1:9001/search/retrieve/";
+       	var retrieveEndpoint = "http://127.0.0.1:9001";
         
 
          //hide the register div and ask for location on load
@@ -132,7 +132,7 @@
 
             $.ajax({
                 type: "POST",
-                data: fData,
+                data: JSON.stringify(fData),
                 url: searchEndpoint,
                 success: function(result){
                 	console.log("search success : " + JSON.stringify(result));
@@ -207,7 +207,6 @@
                 type : 'GET',
                 success: function(result){
                     userInfo = result;
-                    retrieveEndpoint += result.userName
                     console.log(result);
                 },
                 error: function(error){

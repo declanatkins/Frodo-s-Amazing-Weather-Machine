@@ -58,7 +58,6 @@ public class EventbriteSearch {
 	 *
 	 */
 	private static String requestURL(String url) throws Exception {
-		System.out.println(url);
 		ClientResource res = new ClientResource(url);
 		Representation rep = res.get();
 		return rep.getText();

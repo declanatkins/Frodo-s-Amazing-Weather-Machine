@@ -41,6 +41,7 @@ public class EventSystemApplication extends Application {
 				if (request.getMethod() == Method.POST) {
 					try {
 						JsonParser parser = new JsonParser();
+						System.out.println(request.getEntityAsText());
 						JsonObject json = (JsonObject) parser.parse(request.getEntityAsText());
 						JsonObject locationObj = json.get("location").getAsJsonObject();
 						LocationData location = LocationData.create(locationObj.get("latitude").getAsDouble(),
@@ -54,8 +55,10 @@ public class EventSystemApplication extends Application {
 						results.put(user.getName(), theSearch);
 						String link = request.getResourceRef().getPath() + "/retrieve/" + user.getName();
 						response.setEntity("{\"link\" : \"" + link + "\"}" , MediaType.APPLICATION_JSON);
+						System.out.println(link);
 						response.setStatus(Status.SUCCESS_OK);
 					} catch (Exception e) {
+						e.printStackTrace();
 						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 					}
 				}

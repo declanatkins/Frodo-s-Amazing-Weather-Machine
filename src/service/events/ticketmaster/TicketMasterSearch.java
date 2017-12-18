@@ -30,7 +30,9 @@ public class TicketMasterSearch {
 			return null;
 		}
 		List<Event> results = retrieveEvents(json);
-		search.addResults(results);
+		if(results != null) {
+			search.addResults(results);
+		}
 		return search;
 	}
 	
@@ -55,9 +57,13 @@ public class TicketMasterSearch {
 		JsonObject json;
 		JsonParser parser = new JsonParser();
 		json = (JsonObject) parser.parse(JSON);
-		JsonObject _embedded = json.get("_embedded").getAsJsonObject();
-		JsonArray events = _embedded.get("events").getAsJsonArray();
-		
+		JsonArray events = null;
+		try {
+			JsonObject _embedded = json.get("_embedded").getAsJsonObject();
+			events = _embedded.get("events").getAsJsonArray();
+		} catch (Exception e) {
+			return null;
+		}
 		for(JsonElement elem : events) {
 			
 			JsonObject thisEvent = elem.getAsJsonObject();

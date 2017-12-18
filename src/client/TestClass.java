@@ -28,10 +28,10 @@ public class TestClass {
 		String locObj = gson.toJson(loc);
 		String json = "{\"user\":" + userObj + ",\"location\":" + locObj + ",\"radius\":" + radius + ",\"keywords\":\"" + keywords + "\"}";
 		System.out.println(json);
-		ClientResource resource = new ClientResource("http://localhost:9001/search");
+		/*ClientResource resource = new ClientResource("http://localhost:9001/search");
 		JsonObject result = (JsonObject) new JsonParser().parse(resource.post(json).getText());
 		resource = new ClientResource("http://localhost:9001" + result.get("link").getAsString());
-		System.out.println(resource.get().getText());
+		System.out.println(resource.get().getText());*/
 		
 	}
 

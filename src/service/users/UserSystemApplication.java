@@ -32,6 +32,7 @@ public class UserSystemApplication extends Application{
 			public void handle(Request request, Response response) {
 				if(request.getMethod() == Method.POST) {
 					try {
+						System.out.println(request.getEntityAsText());
 						String input = request.getEntityAsText();
 						input = input.replace("username=", "#");
 						input = input.replace("&password=", "#");
