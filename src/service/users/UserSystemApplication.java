@@ -18,6 +18,10 @@ import org.restlet.routing.Router;
 import org.restlet.service.CorsService;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import service.events.Event;
 
 public class UserSystemApplication extends Application{
 	
@@ -32,13 +36,11 @@ public class UserSystemApplication extends Application{
 			public void handle(Request request, Response response) {
 				if(request.getMethod() == Method.POST) {
 					try {
-						System.out.println(request.getEntityAsText());
-						String input = request.getEntityAsText();
-						input = input.replace("username=", "#");
-						input = input.replace("&password=", "#");
-						input = input.replace("}", "");
-						String[] substr = input.split("#");
-						UserInfo profile = database.getUserProfile(substr[1], substr[2]);
+						JsonParser parser = new JsonParser();
+						JsonObject input = (JsonObject) parser.parse(request.getEntityAsText());
+						UserInfo profile = database.getUserProfile(
+														input.get("username").getAsString(),
+														input.get("password").getAsString());
 						if(profile != null) {
 							users.put(profile.getName(), profile);
 							String link = request.getResourceRef().getPath() + "/users/" + profile.getName();
@@ -84,16 +86,71 @@ public class UserSystemApplication extends Application{
 			
 			public void handle(Request request, Response response) {
 				if(request.getMethod() == Method.POST) {
-					String input = request.getEntityAsText();
-					input = input.replace("username=", "#");
-					input = input.replace("&password=", "#");
-					input = input.replace("}", "");
-					String[] substr = input.split("#");
-					boolean success = database.insertNewUser(substr[1], substr[2]);
+					JsonParser parser = new JsonParser();
+					JsonObject input = (JsonObject) parser.parse(request.getEntityAsText());
+					boolean success = database.insertNewUser(input.get("username").getAsString(),
+															input.get("password").getAsString());
 					if(success) {
 						response.setStatus(Status.SUCCESS_OK);
 					}
 					else {
+						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
+					}
+				}
+				else {
+					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+				}
+			}
+		});
+		
+		router.attach("/lastevent/{user_name}", new Restlet() {
+			
+			public void handle(Request request, Response response) {
+				
+				if (request.getMethod() == Method.GET) {
+					try {
+						String userName = (String) request.getAttributes().get("user_name");
+						UserInfo profile = users.get(userName);
+						Event last = database.getLastEvent(profile);
+						if (last == null) {
+							throw new Exception();
+						}
+						else {
+							response.setStatus(Status.SUCCESS_OK);
+							response.setEntity("{\"user\":\"" + userName + "\"," + 
+											"\"keywords\":\"" + last.getCategories() + "\"}",
+											MediaType.APPLICATION_JSON);
+						}
+					}
+					catch(Exception e) {
+						response.setStatus(Status.CLIENT_ERROR_NOT_FOUND);
+					}
+						
+				} else {
+					response.setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+				}
+			}
+		});
+		
+		router.attach("/lastevent/add/{user_name}", new Restlet() {
+			
+			public void handle(Request request, Response response) {
+				if (request.getMethod() == Method.POST) {
+					try {
+						//this line is just to ensure that a valid event was 
+						//posted it performs no assignments as the string will
+						//be stored in the database
+						gson.fromJson(request.getEntityAsText(), Event.class);
+						String userName = (String) request.getAttributes().get("user_name");
+						UserInfo profile = users.get(userName);
+						if(database.insertEvent(profile.getID(), request.getEntityAsText())) {
+							response.setStatus(Status.SUCCESS_OK);
+						}
+						else {
+							throw new Exception();
+						}
+					}
+					catch(Exception e) {
 						response.setStatus(Status.CLIENT_ERROR_BAD_REQUEST);
 					}
 				}
