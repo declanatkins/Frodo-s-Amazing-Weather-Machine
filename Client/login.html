@@ -203,8 +203,11 @@
             $.ajax({
                 url : registerEndpoint,
                 type : 'POST',
-                data : formData,
+                data : JSON.stringify(formData),
                 success: function(result){
+                    alert("Registration Successful!");
+                    document.getElementById('login_div').style.display = 'block';
+        	        document.getElementById('register_div').style.display = 'none';
                 },
                 error: function(error){
                 	alert("ERROR: " + JSON.stringify(error));
@@ -222,7 +225,7 @@
             $.ajax({
                 url : loginEndpoint,
                 type : 'POST',
-                data : formData,
+                data : JSON.stringify(formData),
                 success: function(result){
                 	
                 	alert("Login Successful!");

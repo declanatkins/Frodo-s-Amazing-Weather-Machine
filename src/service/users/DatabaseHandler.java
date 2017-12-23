@@ -88,12 +88,13 @@ public class DatabaseHandler {
 		try {
 			//prelim test to see if user exists already
 			String testQuery = 
-						"SELECT FROM users" +
-						"WHERE userName = ?";
+						"SELECT COUNT(user_name) FROM users\n" +
+						"WHERE user_name = ?";
 			PreparedStatement testStatement = conn.prepareStatement(testQuery);
 			testStatement.setString(1, userName);
 			ResultSet checkResults = testStatement.executeQuery();
-			if(checkResults.first()){//if there was a row that exists
+			int count = checkResults.getInt(1);
+			if (count > 0) {
 				return false;
 			}
 			String query = 
@@ -105,6 +106,7 @@ public class DatabaseHandler {
 			prepState.execute();
 			return true;
 		} catch (SQLException e ) {
+			e.printStackTrace();
 			System.err.println("Failed inserting new user");
 			return false;
 		}
@@ -129,7 +131,7 @@ public class DatabaseHandler {
 	public Event getLastEvent(UserInfo user){
 		try{
 			String query = 
-					"SELECT FROM events\n" +
+					"SELECT * FROM events\n" +
 					"WHERE userID = ?";
 			PreparedStatement prepState = conn.prepareStatement(query);
 			prepState.setInt(1,user.getID());
