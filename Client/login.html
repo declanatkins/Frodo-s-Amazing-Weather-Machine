@@ -48,11 +48,13 @@
                     <h4>Range to Event (in km)</h4>
                     <input type="number" name="radius" placeholder="Distance to Event (km)" class="input"><br><br>
                     <button type="submit" class="button" id="start_search">Search</button>
+                    <br><br>
+                    <button type="button" class="button" id="recommender" onclick="recommend()">Search Recommender</button>
             	</form>
 			</div>
         
 	        <div id="search_result" style="display:none" class="result_box">
-	        
+		        	<button type="submit" class="button" id="back" onclick="back()">Back</button>
         	</div>
         	
         </div>
@@ -73,6 +75,8 @@
         var registerEndpoint = "http://127.0.0.1:9000/register";
         var searchEndpoint = "http://127.0.0.1:9001/search";
        	var retrieveEndpoint = "http://127.0.0.1:9001";
+       	
+        var recommendEndpoint = "http://127.0.0.1:9001/recommend";
         
 
          //hide the register div and ask for location on load
@@ -105,6 +109,44 @@
         	}
         	
         	submitSearch(fData);
+        }
+        
+        function recommend(){
+            var recommendData = {
+                "user" : userInfo,
+                "recommend" : {
+                    }
+            }
+            
+            console.log("recommendData :" + JSON.stringify(recommendData));
+
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify(fData),
+                url: searchEndpoint,
+                success: function(result){
+                	console.log("search success : " + JSON.stringify(result));
+                	retrieveRecommender(result["link"]);
+                },
+                error: function(error){
+                    console.log("Recommend-Error:" + JSON.stringify(error));
+            		alert("Sorry, the recommender errored! Please try again");
+            		back();
+                }
+            });
+        }function retrieveSearchResults(link){
+            $.ajax({
+                type: "GET",
+                url: retrieveEndpoint + link,
+                success: function(result){
+                	Recommend = result;
+                	show_search_results();
+                },
+                error: function(error){
+                    console.log("Recommend-Error:"+error);
+            		alert("Sorry, an error occurred! Please try again");
+                }
+            });
         }
         
         function submitSearch(formData){
@@ -155,42 +197,46 @@
             document.getElementById('search_result').style.display = 'block';
             searchResults = JSON.stringify(searchResults);
             searchResults = JSON.parse(searchResults);
-            var html = '<div class="table_div">';
+            console.log(searchResults);
+            var html = '<table id="search_table">';//'<div class="table_div">';
+            html += '<tr> <th>Image</th>	<th>Ticket Name</th>	<th>Location</th>	<th>Date/Time</th>	<th>Category</th> </tr>';
             
-            for(var i=0;i<searchResults.results.length-2;i+=3){
-                var url1 = searchResults.results[i].url;
-                var url2 = searchResults.results[i+1].url;
-                var url3 = searchResults.results[i+2].url;
-                var imgUrl1 = searchResults.results[i].imageHref;
-                var imgUrl2 = searchResults.results[i+1].imageHref;
-                var imgUrl3 = searchResults.results[i+2].imageHref;
-                var name1 = searchResults.results[i].name;
-                var name2 = searchResults.results[i+1].name;
-                var name3 = searchResults.results[i+2].name;
-                html += '<div class="row"><div class="left">';
-                html += "<a href=" + url1 + ">";
-                html += '<img class="result_img" width="200" height="112" align="middle" src=' + imgUrl1 + '></a>';
-                html += "</div>";
-               // html += name1;
-                html += '<div class="middle">';
-                html += "<a href=" + url2 + ">";
-                html += '<img class="result_img width="200" height="112" align="middle" src=' + imgUrl2 + '></a>';
-                html += "</div>";
-               // html += name2;
-                html += '<div class="right">';
-                html += "<a href=" + url3 + ">";
-                html += '<img class="result_img width="200" height="112" align="middle" src=' + imgUrl3 + '></a>';
-                html += "</div>";
-                html += "</div>";
+            for(var i=0; i<searchResults.results.length; i+=1){            	
+            	var html_a_href = '<a href="' + searchResults.results[i].url + '">';
+            	
+            	var results_html_array = new Array(
+            			html_a_href + '<img class="result_img" width="200" height="112" align="middle" src="' + searchResults.results[i].imageHref + '"></a>',
+            			html_a_href + searchResults.results[i].name + '</a>',
+            			html_a_href + searchResults.results[i].locationName + '</a>',
+            			html_a_href + searchResults.results[i].dateTimeStamp + '</a>',
+            			html_a_href + searchResults.results[i].categories + '</a>',
+            			html_a_href + searchResults.results[i].source + '</a>'
+    			);
+                
+                html += '<tr>';
+                for(j=0; j<5; j++){
+                	html += "<td>";
+                	html += results_html_array[j];
+                	html += "</td>";
+                }
+                html += '</tr>';
             }
 
-        	if(html == '<div class="table">'){
+            html += "</table>";
+
+        	if(searchResults.results.length == 0){
         		alert("Sorry, no results found! Please try again");
+        		back();
         		return;
         	}
         	
-            document.getElementById("search_result").innerHTML= html + '</tbody></table>';
+            document.getElementById("search_result").innerHTML= html;
 
+        }
+        
+        function back(){
+        	document.getElementById('search_input').style.display = 'block';
+            document.getElementById('search_result').style.display = 'none';
         }
         
         function reg_func(form){

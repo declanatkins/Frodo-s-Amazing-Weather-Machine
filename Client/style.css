@@ -14,14 +14,15 @@
 }
 
 @font-face{
-    font-family: showcard-gothic;
+    font-family: arial;
     src: url("showg.ttf");
+    src: url("arial.ttf");
 }
 
 body{
     margin: 0;
     background-color: #f59960;
-    font-family: showcard-gothic;
+    font-family: arial;
 }
 
 .content{
@@ -58,7 +59,7 @@ body{
 
 .input_group{
     margin-bottom: 20px;
-    font-family: showcard-gothic;
+    font-family: arial;
 }
 
 .button{
@@ -78,7 +79,7 @@ body{
 }
 
 .input{
-    font-family: showcard-gothic;
+    font-family: arial;
     border-radius: 4px;
 }
 
@@ -88,14 +89,12 @@ body{
 }
 
 .result_box{
-    width: 750px;
-    min-height: 350px;
-    max-height:350px;
+	margin:auto
+    width: 60%;
     background-color: #99d9ea;
     border-radius: 4px;
     box-shadow: 0px 2px 10px;
     text-align: center;
-    padding: 20px;
     overflow-y: scroll;
 }
 
