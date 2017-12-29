@@ -89,7 +89,7 @@ body{
 }
 
 .result_box{
-	margin:auto
+	margin:auto;
     width: 60%;
     background-color: #99d9ea;
     border-radius: 4px;

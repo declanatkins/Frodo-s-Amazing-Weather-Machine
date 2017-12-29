@@ -52,9 +52,12 @@
                     <button type="button" class="button" id="recommender" onclick="recommend()">Search Recommender</button>
             	</form>
 			</div>
+			
+			<div id="back_to_search">
+				<button type="submit" class="button" id="back" onclick="back()">Back</button>
+			</div>
         
 	        <div id="search_result" style="display:none" class="result_box">
-		        	<button type="submit" class="button" id="back" onclick="back()">Back</button>
         	</div>
         	
         </div>
@@ -139,7 +142,7 @@
                 type: "GET",
                 url: retrieveEndpoint + link,
                 success: function(result){
-                	Recommend = result;
+                	searchResults = result;
                 	show_search_results();
                 },
                 error: function(error){
@@ -199,22 +202,34 @@
             searchResults = JSON.parse(searchResults);
             console.log(searchResults);
             var html = '<table id="search_table">';//'<div class="table_div">';
-            html += '<tr> <th>Image</th>	<th>Ticket Name</th>	<th>Location</th>	<th>Date/Time</th>	<th>Category</th> </tr>';
+            html += '<tr> <th>Image</th> <th>Ticket Name</th> <th>Location</th> <th>Date/Time</th> <th>Temperature</th> <th>Forecast</th> </tr>';
             
             for(var i=0; i<searchResults.results.length; i+=1){            	
             	var html_a_href = '<a href="' + searchResults.results[i].url + '">';
+
+            	var description = '-----';
+            	var temperature = null;
+            	
+           		if(searchResults.results[i].hasOwnProperty('forecast')){
+           			description = searchResults.results[i].forecast.description;
+           			temperature = (Math.round(searchResults.results[i].forecast.temperature * 10) / 10) + 'C';
+           			console.log("forecast:"+description+':'+temperature);
+            	}else{
+            		temperature = '-----';
+            	}
             	
             	var results_html_array = new Array(
-            			html_a_href + '<img class="result_img" width="200" height="112" align="middle" src="' + searchResults.results[i].imageHref + '"></a>',
+            			html_a_href + '<img class="result_img" width="175" height="100" align="left" src="' + searchResults.results[i].imageHref + '"></a>',
             			html_a_href + searchResults.results[i].name + '</a>',
             			html_a_href + searchResults.results[i].locationName + '</a>',
             			html_a_href + searchResults.results[i].dateTimeStamp + '</a>',
-            			html_a_href + searchResults.results[i].categories + '</a>',
-            			html_a_href + searchResults.results[i].source + '</a>'
+            			//html_a_href + searchResults.results[i].categories + '</a>',
+            			temperature,
+            			description
     			);
                 
                 html += '<tr>';
-                for(j=0; j<5; j++){
+                for(j=0; j<results_html_array.length; j++){
                 	html += "<td>";
                 	html += results_html_array[j];
                 	html += "</td>";
