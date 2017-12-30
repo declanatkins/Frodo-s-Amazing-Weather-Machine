@@ -1,6 +1,8 @@
 package service.location;
 
 import ch.hsr.geohash.GeoHash;
+import ch.hsr.geohash.WGS84Point;
+import ch.hsr.geohash.util.VincentyGeodesy;
 
 public class LocationData {
 	
@@ -30,5 +32,12 @@ public class LocationData {
 	
 	public String getHash() {
 		return geohash;
+	}
+	
+	public double getDistance(LocationData otherLoc) {
+		WGS84Point thisPoint = new WGS84Point(this.latitude,this.longitude);
+		WGS84Point otherPoint = new WGS84Point(otherLoc.latitude,otherLoc.longitude);
+		double distance = VincentyGeodesy.distanceInMeters(thisPoint, otherPoint);
+		return distance;
 	}
 }

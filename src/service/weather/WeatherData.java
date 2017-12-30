@@ -4,8 +4,13 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -24,10 +29,31 @@ import service.location.LocationData;
 public class WeatherData {
 	
 	private static final String WEATHER_KEY = "598563d6c096db6a11b768dc2513e4ad";
+	private static Map<LocationData, WeatherData> retrievedResults = new HashMap<LocationData, WeatherData>();
 
 	public static WeatherData retrieveWeatherData(LocationData location) {
 		URL url;
 		WeatherData wd = null;
+		
+		//prelim check to see if we've got weather info from nearby to try and
+		//reduce the requests being made
+		
+		for(LocationData key : retrievedResults.keySet()) {
+			//if its less than 25km away use this data
+			if (location.getDistance(key) > 25000) {
+				//now check if the weather data is up to date, ie was retrieved today
+				WeatherData theData = retrievedResults.get(key);
+				String timeStamp = theData.getForecast().get(0).getTimestamp();
+				DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
+				Date today = new Date();
+				String todayTimeStamp = df.format(today);
+				String[] splitStamp = timeStamp.split(" ");
+				if(splitStamp[0].equalsIgnoreCase(todayTimeStamp)) {
+					return theData;
+				}
+			}
+		}
+		
 		try {
 			url = new URL("http://api.openweathermap.org/data/2.5/forecast?" +
 							"lat=" + location.getLat() +
@@ -44,9 +70,12 @@ public class WeatherData {
 			reader.close();
 			is.close();
 			wd = new WeatherData(parse(result));
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		} 
+		
+		retrievedResults.put(location, wd);
 		return wd;
 	}
 	
@@ -90,13 +119,16 @@ public class WeatherData {
 			JsonArray weatherArr = curr.get("weather").getAsJsonArray();
 			JsonObject weatherObj = weatherArr.get(0).getAsJsonObject();
 			String desc = weatherObj.get("description").getAsString();
+			String icon = weatherObj.get("icon").getAsString();
+			icon = "http://openweathermap.org/img/w/" + icon + ".png";
 			ForecastInfo fi = new ForecastInfo(
 											temp,
 											humidity,
 											speed,
 											precip,
 											desc,
-											timeStamp);
+											timeStamp,
+											icon);
 			forecast.add(fi);
 		}
 		return forecast;

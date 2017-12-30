@@ -8,16 +8,19 @@ public class ForecastInfo {
 	private double precipitation;
 	private String description;
 	private String timestamp;
+	private String iconURL;
 	
 	public ForecastInfo(double temp, double humid,
 						double wSpeed, double precip,
-						String desc, String dt) {
+						String desc, String dt, 
+						String icon) {
 		temperature = temp;
 		humidity = humid;
 		windSpeed = wSpeed;
 		precipitation = precip;
 		description = desc;
 		timestamp = dt;
+		iconURL = icon;
 	}
 	
 	public double getTemp() {
@@ -42,6 +45,10 @@ public class ForecastInfo {
 	
 	public String getTimestamp() {
 		return timestamp;
+	}
+	
+	public String getIcon() {
+		return iconURL;
 	}
 	
 }
