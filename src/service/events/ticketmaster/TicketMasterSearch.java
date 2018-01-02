@@ -124,9 +124,17 @@ public class TicketMasterSearch {
 			if(loc != null) {
 				WeatherData wd = WeatherData.retrieveWeatherData(loc);
 				for(ForecastInfo fi : wd.getForecast()) {
-					String editedForecastStamp = fi.getTimestamp().replaceAll(":00:00", "");
-					if(datetime.contains(editedForecastStamp)) {
-						theForecast = fi;
+					String timeStampDate = datetime.split(" ")[0];
+					String timeStampTime = datetime.split(" ")[1];
+					String fiTimeStampDate = fi.getTimestamp().split(" ")[0];
+					String fiTimeStampTime = fi.getTimestamp().split(" ")[1];
+					if(timeStampDate.equalsIgnoreCase(fiTimeStampDate)) {
+						int hour = Integer.parseInt(timeStampTime.split(":")[0]);
+						int fiHour = Integer.parseInt(fiTimeStampTime.split(":")[0]);
+						if (hour == fiHour || hour < fiHour+3) {
+							theForecast = fi;
+							break;
+						}
 					}
 				}
 			}

@@ -71,6 +71,7 @@
         var searchResults = null;
         var userInfo = null;
         var sampleJson = null;
+		var results = {};
 
         //ENDPOINTS
         var usersBase = "http://127.0.0.1:9000";
@@ -115,29 +116,26 @@
         }
         
         function recommend(){
-            var recommendData = {
-                "user" : userInfo,
-                "recommend" : {
-                    }
-            }
             
-            console.log("recommendData :" + JSON.stringify(recommendData));
-
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(fData),
-                url: searchEndpoint,
-                success: function(result){
-                	console.log("search success : " + JSON.stringify(result));
-                	retrieveRecommender(result["link"]);
-                },
-                error: function(error){
-                    console.log("Recommend-Error:" + JSON.stringify(error));
-            		alert("Sorry, the recommender errored! Please try again");
-            		back();
-                }
-            });
-        }function retrieveSearchResults(link){
+			$.ajax({
+				type: "GET",
+				url: usersBase + '/lastevent/' + userInfo.userName,
+				success: function(result){
+					var fData = {
+						"user" : userInfo,
+						"keywords" : result.keywords,
+						"radius" : parseInt(25)
+					}
+					submitSearch(fData);
+				},
+				error: function(error){
+					alert("The recommender failed, try using the standard search method");
+				}
+			});
+        }
+		
+		
+		function retrieveSearchResults(link){
             $.ajax({
                 type: "GET",
                 url: retrieveEndpoint + link,
@@ -202,17 +200,21 @@
             searchResults = JSON.parse(searchResults);
             console.log(searchResults);
             var html = '<table id="search_table">';//'<div class="table_div">';
-            html += '<tr> <th>Image</th> <th>Ticket Name</th> <th>Location</th> <th>Date/Time</th> <th>Temperature</th> <th>Forecast</th> </tr>';
+            html += '<tr> <th>Image</th> <th>Ticket Name</th> <th>Location</th> <th>Date/Time</th> <th>Temperature</th> <th>Forecast</th> <th>Image</th> </tr>';
             
-            for(var i=0; i<searchResults.results.length; i+=1){            	
-            	var html_a_href = '<a href="' + searchResults.results[i].url + '">';
-
-            	var description = '-----';
+            for(var i=0; i<searchResults.results.length; i+=1){   
+				var keyName = 'event' + i;
+            	var html_a_href = '<a href="#" id="' + keyName + '" onclick="addEvent(this.id)">';
+            	results[keyName] = searchResults.results[i];
+				console.log(results[keyName]);
+				var description = '-----';
+				var forecastImg = '-----';
             	var temperature = null;
             	
            		if(searchResults.results[i].hasOwnProperty('forecast')){
            			description = searchResults.results[i].forecast.description;
            			temperature = (Math.round(searchResults.results[i].forecast.temperature * 10) / 10) + 'C';
+					forecastImg = searchResults.results[i].forecast.iconURL;
            			console.log("forecast:"+description+':'+temperature);
             	}else{
             		temperature = '-----';
@@ -225,7 +227,8 @@
             			html_a_href + searchResults.results[i].dateTimeStamp + '</a>',
             			//html_a_href + searchResults.results[i].categories + '</a>',
             			temperature,
-            			description
+            			description,
+						'<img src="' + forecastImg + '">'
     			);
                 
                 html += '<tr>';
@@ -329,6 +332,26 @@
             currLocation = loc;
             console.log(currLocation)
         }
+		
+		function addEvent(id){
+		
+			var event = results[id];
+			var url = usersBase + '/lastevent/add/' + userInfo.userName;
+			console.log(url);
+			$.ajax({
+				url: url,
+				type: 'POST',
+				data: JSON.stringify(event),
+				success: function(result){
+					console.log("success");
+					window.location.href = event.url;
+				},
+				error: function(error){
+					console.log(error);
+					alert("An error has occured :(");
+				}
+			});
+		}
     </script>
 </body>
 </html>

@@ -40,6 +40,7 @@ public class EventSystemApplication extends Application {
 			public void handle(Request request, Response response) {
 				if (request.getMethod() == Method.POST) {
 					try {
+						System.out.println(request.getEntityAsText());
 						JsonParser parser = new JsonParser();
 						JsonObject json = (JsonObject) parser.parse(request.getEntityAsText());
 						JsonObject locationObj = json.get("location").getAsJsonObject();

@@ -119,9 +119,17 @@ public class EventbriteSearch {
 			if(location != null) {
 				WeatherData wd = WeatherData.retrieveWeatherData(location);
 				for(ForecastInfo fi : wd.getForecast()) {
-					String editedForecastStamp = fi.getTimestamp().replaceAll(":00:00", "");
-					if(dateTimestamp.contains(editedForecastStamp)) {
-						theForecast = fi;
+					String timeStampDate = dateTimestamp.split(" ")[0];
+					String timeStampTime = dateTimestamp.split(" ")[1];
+					String fiTimeStampDate = fi.getTimestamp().split(" ")[0];
+					String fiTimeStampTime = fi.getTimestamp().split(" ")[1];
+					if(timeStampDate.equalsIgnoreCase(fiTimeStampDate)) {
+						int hour = Integer.parseInt(timeStampTime.split(":")[0]);
+						int fiHour = Integer.parseInt(fiTimeStampTime.split(":")[0]);
+						if (hour == fiHour || hour < fiHour+3) {
+							theForecast = fi;
+							break;
+						}
 					}
 				}
 			}

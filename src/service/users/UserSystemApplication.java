@@ -111,14 +111,14 @@ public class UserSystemApplication extends Application{
 					try {
 						String userName = (String) request.getAttributes().get("user_name");
 						UserInfo profile = users.get(userName);
-						Event last = database.getLastEvent(profile);
+						String last = database.getLastEvent(profile);
 						if (last == null) {
 							throw new Exception();
 						}
 						else {
 							response.setStatus(Status.SUCCESS_OK);
 							response.setEntity("{\"user\":\"" + userName + "\"," + 
-											"\"keywords\":\"" + last.getCategories() + "\"}",
+											"\"keywords\":\"" + last + "\"}",
 											MediaType.APPLICATION_JSON);
 						}
 					}
@@ -137,13 +137,10 @@ public class UserSystemApplication extends Application{
 			public void handle(Request request, Response response) {
 				if (request.getMethod() == Method.POST) {
 					try {
-						//this line is just to ensure that a valid event was 
-						//posted it performs no assignments as the string will
-						//be stored in the database
-						gson.fromJson(request.getEntityAsText(), Event.class);
+						Event e = gson.fromJson(request.getEntityAsText(), Event.class);
 						String userName = (String) request.getAttributes().get("user_name");
 						UserInfo profile = users.get(userName);
-						if(database.insertEvent(profile.getID(), request.getEntityAsText())) {
+						if(database.insertEvent(profile.getID(), e.getCategories())) {
 							response.setStatus(Status.SUCCESS_OK);
 						}
 						else {

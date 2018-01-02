@@ -6,10 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import com.google.gson.Gson;
-
-import service.events.Event;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler {
 	
@@ -124,11 +122,12 @@ public class DatabaseHandler {
 			return true;
 		} catch (SQLException e) {
 			System.err.println("Failed inserting event");
+			e.printStackTrace();
 			return false;
 		}
 	}
 
-	public Event getLastEvent(UserInfo user){
+	public String getLastEvent(UserInfo user){
 		try{
 			String query = 
 					"SELECT * FROM events\n" +
@@ -136,14 +135,17 @@ public class DatabaseHandler {
 			PreparedStatement prepState = conn.prepareStatement(query);
 			prepState.setInt(1,user.getID());
 			ResultSet results = prepState.executeQuery();
-			if(results.last()){
-				String eventStr = results.getString(1);
-				Gson gson = new Gson();
-				Event event = gson.fromJson(eventStr, Event.class);
-				return event;
-			}else{
+			List<String> cats = new ArrayList<String>();
+			while(results.next()) {
+				cats.add(results.getString(3));
+			}
+			
+			if(cats.isEmpty()) {
 				return null;
-			}	
+			}
+			else {
+				return cats.get(cats.size()-1);
+			}
 		}
 		catch(Exception e){
 			return null;
