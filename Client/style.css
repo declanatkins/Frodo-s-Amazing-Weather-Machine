@@ -84,10 +84,11 @@ body{
 }
 
 .result_img{
-    width: 100;
-    height: 56;
+    width: 300;
+    height: 150;
 }
 
+/*
 .result_box{
 	margin:auto;
     width: 60%;
@@ -97,17 +98,106 @@ body{
     text-align: center;
     overflow-y: scroll;
 }
+*/
 
-.table_div{
-    display: table;
+.result{
+    color: black;
+	width: 425px;
+	margin: 25px;
+	display: inline-block;
+}
+.result:hover{
+	border: 1px;
+	border-style: groove;
+}
+.result_box{
+	display: block;
+	
+}
+.result_row{
+	height: 350px;
+    width: 100%;
+    text-align:center;
+    margin: auto;
+	display: block;
+	
+}
+.result_left{
+    height: 50%;
+    width: 50%;
+    float: left;
+}
+.result_right{
+    height: 50%;
+    width: 50%;
+	float: right;
 }
 
-.row  {
-    display: table-row;
-    }
+.result_info_left{
+    height: 20%;
+    width: 20%;
+    text-align: center;
+	display: block;
+	float: left;
+}
+.result_info_right{
+    height: 80%;
+    width: 80%;
+    text-align: right;
+	display: block;
+	float: right;
+}
 
-.left, .right, .middle {
-    display: table-cell;
-    padding-bottom: 1em;
-    padding-left: 1em;
+.result_img{
+	border-radius: 15px;
+	
+    width: 400px;
+    height: 200px;
+	display: block;
+    margin: auto;
+}
+.result_name{
+	display: block;
+    margin: auto;
+	font-size:90%;
+}
+.result_location{
+	display: block;
+    margin: auto;
+	font-size:80%;
+}
+.result_month{
+    color: red;
+	display: block;
+    margin: auto;
+	font-size:85%;
+}
+.result_day{
+    color: red;
+	display: block;
+    margin: auto;
+	font-size:90%;
+}
+.result_time{
+	display: block;
+    margin: auto;
+	font-size:75%;
+}
+.result_section_datetime{
+	display: inline-block;
+    margin: auto;
+	background-color: white;
+}
+.result_temp{
+	display: block;
+    margin: auto;
+}
+.result_description{
+	display: block;
+    margin: auto;
+	font-size:70%;
+}
+.result_forecast_img{
+	display: block;
+    margin: auto;
 }
