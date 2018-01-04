@@ -1,0 +1,361 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: 'Frodos Amazing Weather Machine' 
+  description: 'Frodos Amazing Weather Machine'
+schemes: 
+- https
+securityDefinitions:
+  UserSecurity:
+    type: basic
+security:
+  - UserSecurity: []
+
+
+paths:
+  /events:
+    get:
+      description: Returns a list of TicketMaster and Eventbrite events 
+      parameters:
+        - $ref: '#/parameters/Location'
+        - $ref: '#/parameters/Keywords'
+      responses:
+        200:
+          description: Successfully returned a list of event
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Events'
+        400:
+          $ref: '#/responses/400Error'
+ 
+  /login:
+    post:
+      description: check login and password credentials
+      parameters:
+        - $ref: '#/parameters/userName'
+        - $ref: '#/parameters/password'
+      responses:
+        200:
+          $ref: '#/responses/Login_success'
+        401:
+          $ref: '#/responses/CLIENT_ERROR_NOT_FOUND'
+        402:
+          $ref: '#/responses/CLIENT_ERROR_BAD_REQUEST'
+        403:
+          $ref: '#/responses/CLIENT_ERROR_FORBIDDEN'
+ 
+  /login/users/{user_name}:
+    get:
+      description: Login/users/{user_name}
+      parameters:
+        - name: user_name
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: '#/responses/login_user_{user_name}_success'
+        401:
+          $ref: '#/responses/CLIENT_ERROR_NOT_FOUND'
+        403:
+          $ref: '#/responses/CLIENT_ERROR_FORBIDDEN'
+
+  /register:
+    post:
+      description: get username and password
+      parameters:
+        - $ref: '#/parameters/userName'
+        - $ref: '#/parameters/password'
+      responses:
+        200:
+          $ref: '#/responses/SUCCESS_OK'
+        401:
+          $ref: '#/responses/CLIENT_ERROR_NOT_FOUND'
+        402:
+          $ref: '#/responses/CLIENT_ERROR_BAD_REQUEST'
+        403:
+          $ref: '#/responses/CLIENT_ERROR_FORBIDDEN'
+
+  /lastevent/{user_name}:
+    get:
+      description: lastevent/{user_name}
+      parameters:
+        - name: user_name
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: '#/responses/lastevent_{user_name}_success'
+        401:
+          $ref: '#/responses/CLIENT_ERROR_NOT_FOUND'
+        403:
+          $ref: '#/responses/CLIENT_ERROR_FORBIDDEN'
+
+  /lastevent/add/{user_name}:
+    post:
+      description: lastevent/add/{user_name}
+      parameters:
+        - name: user_name
+          in: path
+          type: string
+          required: true
+      responses:
+        200:
+          $ref: '#/responses/lastevent_add_{user_name}_success'
+        402:
+          $ref: '#/responses/CLIENT_ERROR_BAD_REQUEST'
+        403:
+          $ref: '#/responses/CLIENT_ERROR_FORBIDDEN'
+
+  /search:
+    post:
+      description: search
+      parameters:
+        - $ref: '#/parameters/Location'
+        - $ref: '#/parameters/Keywords'
+        - $ref: '#/parameters/radius'
+        - $ref: '#/parameters/userName'
+        - $ref: '#/parameters/userID'
+      responses:
+        200:
+          $ref: '#/responses/search_success'
+        402:
+          $ref: '#/responses/CLIENT_ERROR_BAD_REQUEST'
+        403:
+          $ref: '#/responses/CLIENT_ERROR_FORBIDDEN'
+
+  /search/retrieve/{user_name}:
+    get:
+      description: search retrieve
+      parameters:
+        - name: user_name
+          in: path
+          type: string
+          required: true
+      responses:
+        201:
+          $ref: '#/responses/SUCCESS_OK'
+        401:
+          $ref: '#/responses/CLIENT_ERROR_NOT_FOUND'
+        403:
+          $ref: '#/responses/CLIENT_ERROR_FORBIDDEN'
+
+
+
+
+
+
+
+
+
+
+definitions:
+  Events:
+    type: object
+    properties:
+      name:
+        type: string
+      locationName:
+        type: string
+      location:
+        $ref: '#/definitions/LocationData'
+      forecast:
+        $ref: '#/definitions/ForecastInfo'
+      dateTimeStamp:
+        type: string
+      categories:
+        type: string
+      source:
+        type: string
+      imageHref:
+        type: string
+      url:
+        type: string
+          
+  ForecastInfo:
+    type: object
+    properties:
+      temperature:
+        type: number
+      humidity:
+        type: number
+      windSpeed:
+        type: number
+      precipitation:
+        type: number
+      description:
+        type: string
+      timestamp:
+        type: string
+      iconURL:
+        type: string
+          
+  LocationData:
+    type: object
+    properties:
+      latitude:
+        type: number
+      longitude:
+        type: number
+      geohash:
+        type: string
+          
+  login_success:
+    type: object
+    properties:
+      userName:
+        type: string
+      link:
+        type: string
+          
+  UserInfo:
+    type: object
+    properties:
+      userName:
+        type: string
+      userID:
+        type: integer
+          
+  lastevent_{user_name}_success:
+    type: object
+    properties:
+      userName:
+        type: string
+      categories:
+        type: string
+          
+  link:
+    type: object
+    properties:
+      link: 
+        type: string
+         
+
+
+
+
+
+
+
+parameters:
+  Location:
+    name: location
+    in: query
+    type: string
+    description: Location of user
+    
+  Keywords:
+    name: keywords
+    in: query
+    type: string
+    description: keywords specified by user
+    
+  userName:
+    name: userName
+    in: query
+    required: true
+    type: string
+    description: userName
+    
+  userID:
+    name: userID
+    in: query
+    type: integer
+    description: userID
+    
+  password:
+    name: password
+    in: query
+    required: true
+    type: string
+    description: user password
+    
+  radius:
+    name: radius
+    in: query
+    type: integer
+    description: radius
+    
+  event:
+    name: event
+    in: query
+    type: string
+    description: event
+
+
+
+
+
+
+
+
+
+
+responses:
+  400Error:
+    description: Invalid request
+    schema:
+      type: object 
+      properties:
+        message:
+          type: string
+          
+  CLIENT_ERROR_NOT_FOUND:
+    description: CLIENT_ERROR_NOT_FOUND
+    schema:
+      type: object 
+      properties:
+        message:
+          type: string
+          
+  CLIENT_ERROR_BAD_REQUEST:
+    description: CLIENT_ERROR_BAD_REQUEST
+    schema:
+      type: object 
+      properties:
+        message:
+          type: string
+          
+  CLIENT_ERROR_FORBIDDEN:
+    description: CLIENT_ERROR_FORBIDDEN
+    schema:
+      type: object 
+      properties:
+        message:
+          type: string
+          
+  SUCCESS_OK:
+    description: SUCCESS_OK
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          
+  Login_success:
+    description: SUCCESS_OK
+    schema:
+      $ref: '#/definitions/login_success'
+         
+  login_user_{user_name}_success:
+    description: SUCCESS_OK
+    schema:
+      $ref: '#/definitions/UserInfo'
+         
+  lastevent_{user_name}_success:
+    description: SUCCESS_OK
+    schema:
+      $ref: '#/definitions/lastevent_{user_name}_success'
+          
+  lastevent_add_{user_name}_success:
+    description: SUCCESS_OK
+    schema:
+      $ref: '#/definitions/UserInfo' 
+          
+  search_success:
+    description: SUCCESS_OK
+    schema:
+      $ref: '#/definitions/link'
+          

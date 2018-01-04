@@ -1,0 +1,8 @@
+1. Start the UserSystemApplication and EventSystemApplication
+2. Open Webpage.html in a browser
+
+Notes:
+A user exists called a, and has password: 1234
+This already has previously clicked on events stored for use in the recommender
+If you wish to use the recommender with a new user you need to first click on an event 
+that has come as a search result for them.

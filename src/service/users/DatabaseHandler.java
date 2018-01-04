@@ -34,14 +34,8 @@ public class DatabaseHandler {
 						"id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
 						"userID INTEGER NOT NULL,\n" +
 						"event TEXT NOT NULL);\n";
-			String querySearches =//events searches
-						"CREATE TABLE IF NOT EXISTS event_searches (\n" +
-						"id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-						"userID INTEGER NOT NULL,\n" +
-						"params TEXT NOT NULL\n);";
 			s.execute(queryUsers);
 			s.execute(queryEvents);
-			s.execute(querySearches);
 		} catch (SQLException e) {
 			System.err.println("Error verifying tables");
 		}
