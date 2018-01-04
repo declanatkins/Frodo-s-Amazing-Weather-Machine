@@ -203,15 +203,14 @@
             searchResults = JSON.parse(searchResults);
             console.log(searchResults);
             var count = 0;
-            var html_a = '<a href="#" id="' + keyName + '" onclick="addEvent(this.id)">';
             
             var html = '<div class = "result_box">';
             
             for(var i=0; i<searchResults.results.length; i+=1){
-            	
             	var keyName = 'event' + i;
             	results[keyName] = searchResults.results[i];
-				//console.log(results[keyName]);
+				console.log(results[keyName]);
+            	var html_a = '<a href="#" id="' + keyName + '" onclick="addEvent(this.id)">';
 				
 				var description = '';
 				var forecastImg = '';
@@ -349,7 +348,7 @@
                 data : JSON.stringify(formData),
                 success: function(result){
                 	
-                	alert("Login Successful!");
+                	//alert("Login Successful!");
                     getUserInfo(result["link"]);
                     logged_in();
                 },

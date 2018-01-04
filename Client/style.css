@@ -106,14 +106,17 @@ body{
 
 .result{
     color: black;
+	height: 330px;
 	width: 400px;
 	margin: 25px;
+	padding: 1px;
 	display: inline-block;
 	background-color: #efefef;
 	border-radius: 15px;
 }
 .result:hover{
 	border: 1px;
+	padding: 0px;
 	border-style: groove;
 }
 .result_box{
@@ -140,16 +143,14 @@ body{
 }
 
 .result_info_left{
-    height: 20%;
     width: 20%;
     text-align: center;
 	display: block;
 	float: left;
 }
 .result_info_right{
-    height: 80%;
     width: 80%;
-    text-align: right;
+    text-align: center;
 	display: block;
 	float: right;
 }
@@ -190,13 +191,20 @@ body{
 	font-size:75%;
 }
 .result_section_datetime{
+	height: 47px;
+	width: 47px;
 	display: inline-block;
     margin: auto;
 	background-color: white;
+	border-radius: 5px;
+	border: 1px;
+	border-style: groove;
+	padding: 5px;
+	margin-top: 3px;
 }
 .result_temp{
 	display: block;
-    margin: auto;
+    margin-bottom: 5px;
 }
 .result_description{
 	display: block;
@@ -204,6 +212,8 @@ body{
 	font-size:70%;
 }
 .result_forecast_img{
+	height: 40px;
+	width: 40px;
 	display: block;
     margin: auto;
 }
