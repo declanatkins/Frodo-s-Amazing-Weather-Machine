@@ -21,7 +21,7 @@
 
 body{
     margin: 0;
-    background-color: #f59960;
+    background-color: #ffffff;
     font-family: arial;
 }
 
@@ -43,7 +43,11 @@ body{
 
 /* hide main page at by default (login page shown)*/
 .main_page{
-	
+    background-color: #99d9ea;
+    border-radius: 4px;
+    box-shadow: 0px 2px 10px;
+    text-align: center;
+    padding: 25px;
 }
 
 .main_page:input{
@@ -104,7 +108,9 @@ body{
     color: black;
 	width: 425px;
 	margin: 25px;
+	padding: 5px;
 	display: inline-block;
+	background-color: #efefef;
 }
 .result:hover{
 	border: 1px;

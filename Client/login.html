@@ -43,7 +43,7 @@
         
         <div class="main_page" id="main_div">
         
-			<div class="main_page" id="search_input">
+			<div id="search_input">
 				<form class="login-form" action="javascript:;" onsubmit="search_func(this)">
                     <input type="text" name="keywords" placeholder="Keywords for Search" class="input"><br>
                     <h4>Range to Event (in km)</h4>
@@ -51,10 +51,11 @@
                     <button type="submit" class="button" id="start_search">Search</button>
                     <br><br>
                     <button type="button" class="button" id="recommender" onclick="recommend()">Search Recommender</button>
+                    <br><br>
             	</form>
 			</div>
 			
-			<div id="back_to_search">
+			<div id="back_to_search" style="display:none">
 				<button type="submit" class="button" id="back" onclick="back()">Back</button>
 				<br>
 			</div>
@@ -196,6 +197,7 @@
         
         function show_search_results(){
         	document.getElementById('search_input').style.display = 'none';
+        	document.getElementById('back_to_search').style.display = 'block';
             document.getElementById('search_result').style.display = 'block';
             searchResults = JSON.stringify(searchResults);
             searchResults = JSON.parse(searchResults);
@@ -308,6 +310,7 @@
         
         function back(){
         	document.getElementById('search_input').style.display = 'block';
+        	document.getElementById('back_to_search').style.display = 'none';
             document.getElementById('search_result').style.display = 'none';
         }
         
